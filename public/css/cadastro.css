@@ -1,7 +1,7 @@
 .form-cadastro {
     border: solid 2px purple;
     border-radius: 15px;
-    background-color: rgba(255, 255, 255, .3);
+    background-color: rgba(255, 255, 255, .6);
     color: white;
     display: flex;
     flex-direction: column;
@@ -14,7 +14,7 @@
     display: none;
     border: solid 2px purple;
     border-radius: 15px;
-    background-color: rgba(255, 255, 255, .3);
+    background-color: rgba(255, 255, 255, .6);
     color: white;
     /* display: flex; */
     flex-direction: column;
@@ -40,7 +40,7 @@
 }
 
 .campo-duplo {
-    border: solid 2px green;
+    /* border: solid 2px green; */
     display: flex;
     justify-content: space-around;
 }
