@@ -1,0 +1,81 @@
+.form-cadastro {
+    border: solid 2px purple;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, .3);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 650px;
+    width: 640px;
+}
+
+.form-endereco {
+    display: none;
+    border: solid 2px purple;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, .3);
+    color: white;
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    height: 650px;
+    width: 640px;
+}
+
+.cadastro-campos {
+    border: solid 2px red;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.campo {
+    border: solid 2px yellow;
+    display: flex;
+    flex-direction: column;
+    margin: 0 18px;
+}
+
+.campo-duplo {
+    border: solid 2px green;
+    display: flex;
+    justify-content: space-around;
+}
+
+input {
+    background: rgba(255, 255, 255, .3);
+    border: none;
+    outline: none;
+    padding: 0.4rem .9rem;
+    font-family: 'Poppins';
+    font-size: 20px;
+    border-radius: 100px;
+    transition: background .5s;
+}
+
+input:focus {
+    background: white;
+}
+
+button {
+    background-color: white;
+    letter-spacing: 2px;
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+    width: 34%;
+    height: 60px;
+    padding: 0.7rem 1.2rem;
+    border-radius: 100px;
+    align-self: center;
+    transition: background .5s;
+}
+
+button:hover {
+    background: black;
+    color: white;
+    cursor: pointer;
+}

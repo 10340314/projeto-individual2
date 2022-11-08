@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="login-banner">
+        <div class="header">
+            <div class="container">
+                <h1 class="titulo">Korean Music</h1>
+                <ul class="navbar">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Cadastro</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="alerta_erro">
+                <div class="card_erro" id="cardErro">
+                    <span id="mensagem_erro"></span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="form-login">
+                    <div class="form-title">
+                        <h2>Faça o seu login</h2>
+                    </div>
+                    <div class="login-campos">
+                        <div class="login-campo">
+                            <span class="nome_campo">E-mail</span>
+                            <input type="email" id="ipt_email" autofocus placeholder="E-mail">
+                        </div>
+                        <div class="login-campo">
+                            <span class="nome_campo">Senha</span>
+                            <input type="password" id="ipt_pass" autofocus="******">
+                        </div>
+                        <div class="btn_forgot">
+                            <span class="forgot_pass"><a href="#">Esqueceu a senha?</a></span>
+                            <button onclick="verificar()">Entrar</button>
+                        </div>
+                        <span class="criar_acc">Não tem uma conta? <a href="#">Criar uma conta!</a></span>
+                    </div>
+                </div>
+                <!-- <div id="div_erros_login">
+
+                    </div> -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+.login-banner {
+    background-image: url("../assets/nctbanner.jpg");
+    background-color: rgba(0, 0, 0, 0.35);
+    background-blend-mode: color;
+    background-size: cover;
+    height: 970px;
+}
+
+.login-banner .container {
+    /* border: solid 2px navy; */
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header .container {
+    justify-content: space-between;
+}
+
+.form-login {
+    /* border: solid 2px purple; */
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, .3);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 540px;
+    width: 470px;
+}
+
+.login-campos {
+    /* border: solid 2px red; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.login-campo {
+    border: solid 2px purple;
+    height: 24%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nome_campo {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.forgot_pass {
+    text-align: center;
+    font-weight: 600;
+    color: black;
+}
+
+.forgot_pass a {
+    text-decoration: none;
+    color: black;
+}
+
+.forgot_pass a:hover {
+    border-bottom: solid 1px black;
+}
+
+.form-title {
+    /* border: solid 2px red; */
+    background: rgba(255, 255, 255, 0.3);
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    border-bottom: solid 2px rgba(51, 51, 51, 0.7);
+    width: 100%;
+    color: #333;
+    text-align: center;
+    font-size: 20px;
+}
+
+.btn_forgot {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* border: solid 2px red; */
+    width: 85%;
+    margin: 0 auto;
+}
+
+.form-login input {
+    background: rgba(255, 255, 255, .3);
+    border: none;
+    outline: none;
+    width: 80%;
+    padding: 0.7rem 1.2rem;
+    font-family: 'Poppins';
+    font-size: 20px;
+    border-radius: 100px;
+    transition: background .5s;
+}
+
+.form-login input:focus {
+    background: white;
+}
+
+.form-login button {
+    background-color: white;
+    letter-spacing: 2px;
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+    width: 34%;
+    height: 60px;
+    padding: 0.7rem 1.2rem;
+    border-radius: 100px;
+    align-self: center;
+    transition: background .5s;
+}
+
+.form-login button:hover {
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
+.criar_acc {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.criar_acc a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+}
+
+.criar_acc a:hover {
+    border-bottom: solid 1px black;
+}
+
+.alerta_erro {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.card_erro {
+    display: none;
+    background-color: #fff;
+    color: black;
+    width: 230px;
+    position: fixed;
+    border-radius: 4px;
+    border: #e6005a 3px solid;
+    padding: 10px;
+    margin-right: 10%;
+}
+
+.card_erro #mensagem_erro {
+    font-weight: 500;
+    font-size: 20px;
+}

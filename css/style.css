@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,500;1,600&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins';
+    background-image: linear-gradient(to right, #6184fc, #c26efd);
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+}
+
+.header {
+    /* border-bottom: solid 2px black; */
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(0, 0, 0, .5));
+}
+
+.titulo {
+    color: white;
+    margin: .6rem;
+    width: fit-content;
+    font-weight: 600;
+}
+
+.header .container {
+    justify-content: space-between;
+}
+
+.navbar {
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    align-self: center;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    border-bottom: solid 1px white;
+}
+
+.banner {
+    background-image: url("../assets/bts2.jfif");
+    background-color: rgba(0, 0, 0, 0.35);
+    background-blend-mode: color;
+    background-size: cover;
+    height: 600px;
+}
+
+.texto-banner {
+    color: white;
+    text-align: center;
+    font-style: italic;
+}
+
+
+/* ============================================================================================================================ */
+/*          HALLYU-CONTENT          */
+
+.hallyu-content .container {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.hallyu-content {
+    /* border: solid 2px chartreuse; */
+    display: flex;
+}
+
+.hallyu-text {
+    /* border: solid 2px chocolate; */
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+}
+
+.hallyu-text-header {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.25rem;
+}
+
+.hallyu-text-header h2 {
+    margin-bottom: 1rem;
+}
+
+.hallyu-text-body {
+    /* border: solid 2px darkcyan; */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 97%;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    letter-spacing: 0.01rem;
+}
+
+.impacto {
+    font-weight: bold;
+}
+
+.hallyu-imgs {
+    /* border: solid 2px red; */
+    display: flex;
+    width: 67%;
+    margin-top: 1rem;
+    /* justify-content: space-around; */
+}
+
+.hallyu-box {
+    border-left: solid 2px #333;
+    border-right: solid 2px #333;
+    display: flex;
+    flex-direction: column;
+}
+
+.hallyu-box img {
+    /* border: solid 2px red; */
+    width: 380px;
+    border-radius: 10px;
+    align-self: center;
+}
+
+.hallyu-box h4 {
+    /* border: solid 2px palegoldenrod; */
+    text-align: center;
+    font-size: 20px;
+    margin: 0.3rem 0 0 0;
+}
+
+.hallyu-box p {
+    /* border: solid 2px aqua; */
+    margin: 0 0.5rem;
+    width: 380px;
+    height: 100%;
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/cadastro.css">
+</head>
+
+<body>
+    <div class="login-banner">
+        <div class="header">
+            <div class="container">
+                <h1 class="titulo">Korean Music</h1>
+                <ul class="navbar">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Cadastro</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="alerta_erro">
+                <div class="card_erro" id="cardErro">
+                    <span id="mensagem_erro"></span>
+                </div>
+            </div>
+            <!-- FORMULARIO CADASTRO -->
+            <div class="form-cadastro" id="formCadastro">
+                <div class="form-title">
+                    <h2>Faça o seu cadastro</h2>
+                </div>
+                <div class="cadastro-campos">
+                    <div class="campo-duplo">
+                        <div class="campo">
+                            <span class="nome_campo">Nome</span>
+                            <input type="text" id="ipt_nome" placeholder="Nome">
+                        </div>
+                        <div class="campo">
+                            <span class="nome_campo">Sobrenome</span>
+                            <input type="text" id="ipt_sobrenome" placeholder="Sobrenome">
+                        </div>
+                    </div>
+                    <div class="campo-duplo">
+                        <div class="campo">
+                            <span class="nome_campo">E-mail</span>
+                            <input type="email" id="ipt_email" placeholder="E-mail">
+                        </div>
+                        <div class="campo">
+                            <span class="nome_campo">Data de Nascimento</span>
+                            <input type="text" id="ipt_datanasc" placeholder="DD/MM/AA">
+                        </div>
+                    </div>
+                    <div class="campo-duplo">
+                        <div class="campo">
+                            <span class="nome_campo">Senha</span>
+                            <input type="password" id="ipt_pass" placeholder="******">
+                        </div>
+                        <div class="campo">
+                            <span class="nome_campo">Confirmar senha</span>
+                            <input type="password" id="ipt_pass" placeholder="******">
+                        </div>
+                    </div>
+                    <div class="btn_forgot">
+                        <!-- <span class="forgot_pass"><a href="#">Esqueceu a senha?</a></span> -->
+                        <button onclick="prox()">Próximo</button>
+                    </div>
+                    <span class="criar_acc">Já tem uma conta? <a href="#">Fazer login!</a></span>
+                </div>
+                <div class="endereco-campos">
+                    <div class="campo-duplo"></div>
+                </div>
+            </div>
+            <!-- FORMULARIO CADASTRO -->
+            <!-- FORMULARIO ENDEREÇO -->
+            <div class="form-endereco" id="formEndereco">
+                <div class="form-title">
+                    <h2>Preencha os dados do seu endereço</h2>
+                </div>
+                <div class="cadastro-campos">
+                    <div class="campo-duplo">
+                        <div class="campo">
+                            <span class="nome_campo">CEP</span>
+                            <input type="text" id="ipt_cep" placeholder="CEP">
+                        </div>
+                        <div class="campo">
+                            <span class="nome_campo">Rua</span>
+                            <input type="text" id="ipt_rua" placeholder="Rua">
+                        </div>
+                    </div>
+                    <div class="campo-duplo">
+                        <div class="campo">
+                            <span class="nome_campo">Bairro</span>
+                            <input type="email" id="ipt_bairro" placeholder="Bairro">
+                        </div>
+                        <div class="campo">
+                            <span class="nome_campo">Cidade</span>
+                            <input type="text" id="ipt_cidade" placeholder="Cidade">
+                        </div>
+                    </div>
+                    <div class="campo-duplo">
+                        <div class="campo">
+                            <span class="nome_campo">Estado</span>
+                            <input type="password" id="ipt_estado" placeholder="Estado">
+                        </div>
+                        <div class="campo">
+                            <span class="nome_campo">Número</span>
+                            <input type="password" id="ipt_num" placeholder="Número">
+                        </div>
+                    </div>
+                    <div class="btn_forgot">
+                        <!-- <span class="forgot_pass"><a href="#">Esqueceu a senha?</a></span> -->
+                        <button onclick="verificar()">Entrar</button>
+                    </div>
+                    <span class="criar_acc">Já tem uma conta? <a href="#">Fazer login!</a></span>
+                </div>
+                <div class="endereco-campos">
+                    <div class="campo-duplo"></div>
+                </div>
+            </div>
+
+            <!-- <div id="div_erros_login">
+
+                    </div> -->
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function prox() {
+        formCadastro.style.display = 'none'
+        formEndereco.style.display = 'flex'
+    }
+</script>
