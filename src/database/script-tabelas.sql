@@ -1,99 +1,48 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+-- https://stackoverflow.com/questions/18286532/select-if-exist-else-insert
+-- https://www.tutorialspoint.com/mysql/mysql_return_statement.htm#:~:text=The%20RETURN%20statement%20in%20MySQL,use%20LEAVE%20instead%20of%20RETURN.
 
-/*
-comandos para mysql - banco local - ambiente de desenvolvimento
-*/
+CREATE DATABASE projetoIndividual;
 
-CREATE DATABASE aquatech;
+USE projetoIndividual;
 
-USE aquatech;
+CREATE TABLE grupos (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45) NOT NULL,
+    dataDebut DATE NOT NULL,
+    empresa VARCHAR(45) NOT NULL
+);
 
 CREATE TABLE usuario (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50)
+    nome VARCHAR(45) NOT NULL,
+    sobrenome VARCHAR(45) NOT NULL,
+    email VARCHAR(45) NOT NULL,
+    dtNasc DATE NOT NULL,
+    senha VARCHAR(45) NOT NULL,
+    fkGrupoFav INT NOT NULL,
+    FOREIGN KEY (fkGrupoFav) REFERENCES grupos (id)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
-);
-
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300)
-);
-
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
-);
-
-
-/*
-comando para sql server - banco remoto - ambiente de produção
-*/
-
-CREATE TABLE usuario (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-);
-
-CREATE TABLE aviso (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT FOREIGN KEY REFERENCES usuario(id)
-);
-
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY IDENTITY(1,1),
-	descricao VARCHAR(300)
-);
-
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-CREATE TABLE medida (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT FOREIGN KEY REFERENCES aquario(id)
-);
-
-/*
-comandos para criar usuário em banco de dados azure, sqlserver,
-com permissão de insert + update + delete + select
-*/
-
-CREATE USER [usuarioParaAPIWebDataViz_datawriter_datareader]
-WITH PASSWORD = '#Gf_senhaParaAPIWebDataViz',
-DEFAULT_SCHEMA = dbo;
-
-EXEC sys.sp_addrolemember @rolename = N'db_datawriter',
-@membername = N'usuarioParaAPIWebDataViz_datawriter_datareader';
-
-EXEC sys.sp_addrolemember @rolename = N'db_datareader',
-@membername = N'usuarioParaAPIWebDataViz_datawriter_datareader';
+INSERT INTO grupos (nome, dataDebut, empresa) VALUES
+	('BTS', '2013-06-13', 'HYBE LABELS');
+    
+    
+DELIMITER $
+CREATE PROCEDURE select_or_insert()
+BEGIN
+SET registroEnd = (SELECT * FROM endereco WHERE ocep = cep
+								    AND orua = rua
+                                    AND obairro = bairro
+                                    AND ocidade = cidade
+                                    AND oestado = estado
+                                    AND onum = num);
+                                    
+IF (ISNULL(registroEnd)) THEN
+	INSERT INTO endereco (cep, rua, bairro, cidade, estado, num) VALUES
+		(ocep, orua, obairro, ocidade, oestado, onum);
+	RETURN LAST_INSERT_ID();
+ELSE
+	RETURN registroEnd;
+END IF;
+END $
+DELIMITER ;

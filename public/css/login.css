@@ -149,6 +149,25 @@
     justify-content: flex-end;
 }
 
+#div_erros {
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#div_erros span{
+    background: rgba(255, 255, 255, .3);
+    border: solid 2px rgba(0, 0, 0, .5);
+    width: 60%;
+    margin: 0 auto;
+    border-radius: 50px;
+    text-align: center;
+    color: red;
+    font-weight: 800;
+    font-size: 20px;
+    align-content: center;
+}
+
 .card_erro {
     display: none;
     background-color: #fff;

@@ -25,7 +25,7 @@ function listar(req, res) {
 }
 
 function entrar(req, res) {
-    var email = req.body.emailServer;
+    var email = req.body.loginServer;
     var senha = req.body.senhaServer;
 
     if (email == undefined) {
@@ -33,7 +33,7 @@ function entrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
-        
+
         usuarioModel.entrar(email, senha)
             .then(
                 function (resultado) {
@@ -45,6 +45,68 @@ function entrar(req, res) {
                         res.json(resultado[0]);
                     } else if (resultado.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
+                    } else {
+                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+
+}
+
+function verEndereco(req, res) {
+    var cep = req.body.cepServer
+    var rua = req.body.ruaServer
+    var bairro = req.body.bairroServer
+    var cidade = req.body.cidadeServer
+    var estado = req.body.estadoServer
+    var num = req.body.numServer
+
+    if (cep == undefined) {
+        res.status(400).send("Seu cep está indefinida!");
+    } else if (rua == undefined) {
+        res.status(400).send("Sua rua está indefinida!");
+    } else if (bairro == undefined) {
+        res.status(400).send("Seu bairro está indefinido!");
+    } else if (cidade == undefined) {
+        res.status(400).send("Sua cidade está indefinida!");
+    } else if (estado == undefined) {
+        res.status(400).send("Seu estado está indefinido!");
+    } else if (num == undefined) {
+        res.status(400).send("Seu número está indefinido!");
+    } else {
+
+        usuarioModel.verEmail(cep, rua, bairro, cidade, estado, num)
+            .then(
+                function (resultado) {
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+                    if (resultado.length == 1) {
+                        console.log(resultado);
+                        res.json(resultado[0]);
+                    } else if (resultado.length == 0) {
+                        usuarioModel.cadEndereco(cep, rua, bairro, cidade, estado, num)
+                            .then(
+                                function (result) {
+                                    res.json(result);
+                                }
+                            ).catch(
+                                function (erro) {
+                                    console.log(erro);
+                                    console.log(
+                                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                                        erro.sqlMessage
+                                    );
+                                    res.status(500).send("Houve um erro ao realizar o cadastro!");
+                                }
+                            );
                     } else {
                         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
                     }
@@ -77,7 +139,7 @@ function cadastrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else {
-        
+
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(nome, sobrenome, email, dtNasc, senha, favGroup)
             .then(
