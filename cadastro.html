@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/cadastro.css">
+    <script src="js/cep.js"></script>
 </head>
 
 <body>
@@ -65,11 +66,23 @@
                             <input type="password" id="ipt_pass" placeholder="******">
                         </div>
                     </div>
+                    <div class="campo">
+                        <span class="nome_campo">Grupo favorito:</span>
+                        <select id="sel_grupo">
+                            <option value="BTS">BTS</option>
+                            <option value="TWICE">TWICE</option>
+                            <option value="NCT">NCT</option>
+                            <option value="BP">BLACKPINK</option>
+                            <option value="EXO">EXO</option>
+                            <option value="ITZY">ITZY</option>
+                        </select>
+                    </div>
                     <div class="btn_forgot">
                         <!-- <span class="forgot_pass"><a href="#">Esqueceu a senha?</a></span> -->
                         <button onclick="prox()">Próximo</button>
                     </div>
                     <span class="criar_acc">Já tem uma conta? <a href="#">Fazer login!</a></span>
+                    <div id="div_erros"><span id="span_erro"></span></div>
                 </div>
                 <div class="endereco-campos">
                     <div class="campo-duplo"></div>
@@ -85,7 +98,7 @@
                     <div class="campo-duplo">
                         <div class="campo">
                             <span class="nome_campo">CEP</span>
-                            <input type="text" id="ipt_cep" placeholder="CEP">
+                            <input type="text" id="ipt_cep" placeholder="CEP" maxlength="9" onblur="buscaCEP()">
                         </div>
                         <div class="campo">
                             <span class="nome_campo">Rua</span>
@@ -105,11 +118,11 @@
                     <div class="campo-duplo">
                         <div class="campo">
                             <span class="nome_campo">Estado</span>
-                            <input type="password" id="ipt_estado" placeholder="Estado">
+                            <input type="text" id="ipt_estado" placeholder="Estado">
                         </div>
                         <div class="campo">
                             <span class="nome_campo">Número</span>
-                            <input type="password" id="ipt_num" placeholder="Número">
+                            <input type="text" id="ipt_num" placeholder="Número">
                         </div>
                     </div>
                     <div class="btn_forgot">
@@ -117,15 +130,10 @@
                         <button onclick="verificar()">Entrar</button>
                     </div>
                     <span class="criar_acc">Já tem uma conta? <a href="#">Fazer login!</a></span>
-                </div>
-                <div class="endereco-campos">
-                    <div class="campo-duplo"></div>
+                    <div id="div_errosEnd"><span id="span_erroEnd"></span></div>
                 </div>
             </div>
-
-            <!-- <div id="div_erros_login">
-
-                    </div> -->
+            <!-- FORMULARIO ENDEREÇO -->
         </div>
     </div>
 </body>

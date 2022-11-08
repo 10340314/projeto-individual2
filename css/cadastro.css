@@ -45,6 +45,25 @@
     justify-content: space-around;
 }
 
+#div_erros, #div_errosEnd {
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#div_erros, #div_errosEnd span{
+    background: rgba(255, 255, 255, .3);
+    border: solid 2px rgba(0, 0, 0, .5);
+    width: 60%;
+    margin: 0 auto;
+    border-radius: 50px;
+    text-align: center;
+    color: red;
+    font-weight: 800;
+    font-size: 20px;
+    align-content: center;
+}
+
 input {
     background: rgba(255, 255, 255, .3);
     border: none;
@@ -54,6 +73,21 @@ input {
     font-size: 20px;
     border-radius: 100px;
     transition: background .5s;
+}
+
+select {
+    background: rgba(255, 255, 255, .3);
+    border: none;
+    outline: none;
+    padding: .4rem .9rem;
+    font-family: 'Poppins';
+    font-size: 20px;
+    border-radius: 100px;
+    transition: background .5s;
+}
+
+select:focus {
+    background: white;
 }
 
 input:focus {
