@@ -8,6 +8,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
+    <script src="js/funcoes.js"></script>
 </head>
 
 <body>
@@ -35,17 +36,17 @@
                 <div class="login-campos">
                     <div class="login-campo">
                         <span class="nome_campo">E-mail</span>
-                        <input type="email" id="ipt_email" autofocus placeholder="E-mail">
+                        <input type="email" id="ipt_email" autofocus placeholder="E-mail" onkeypress="limpaBorda(this)">
                     </div>
                     <div class="login-campo">
                         <span class="nome_campo">Senha</span>
-                        <input type="password" id="ipt_pass" autofocus="******">
+                        <input type="password" id="ipt_pass" placeholder="******" onkeypress="limpaBorda(this)">
                     </div>
                     <div class="btn_forgot">
                         <span class="forgot_pass"><a href="#">Esqueceu a senha?</a></span>
                         <button onclick="verificar()">Entrar</button>
                     </div>
-                    <span class="criar_acc">Não tem uma conta? <a href="#">Criar uma conta!</a></span>
+                    <span class="criar_acc">Não tem uma conta? <a href="cadastro.html">Criar uma conta!</a></span>
                     <div id="div_erros"><span id="span_erros">ADDASSD</span></div>
                 </div>
             </div>
@@ -56,10 +57,24 @@
 </html>
 
 <script>
+    var emailInput = document.getElementById("ipt_email")
+    var senhaInput = document.getElementById("ipt_pass")
+    var confSenhaInput = document.getElementById("ipt_pass")
+    
+    var erro = false
+
     function verificar() {
+        var inputs = [emailInput, senhaInput]
+
+        for (let i = 0; i < inputs.length; i++) {
+            verifErro(inputs[i].value, inputs[i])
+        }
+
+
+    }
+    
+    function logar() {
         div_erros.style.display = 'none'
-        var loginVar = ipt_email.value
-        var senhaVar = ipt_pass.value
 
         fetch("usuarios/login", {
             method: "POST",

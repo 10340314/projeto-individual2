@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/cadastro.css">
     <script src="js/cep.js"></script>
+    <script src="js/funcoes.js"></script>
 </head>
 
 <body>
@@ -82,7 +83,7 @@
                         <!-- <span class="forgot_pass"><a href="#">Esqueceu a senha?</a></span> -->
                         <button onclick="prox()">Próximo</button>
                     </div>
-                    <span class="criar_acc">Já tem uma conta? <a href="#">Fazer login!</a></span>
+                    <span class="criar_acc">Já tem uma conta? <a href="login.html">Fazer login!</a></span>
                     <div id="div_erros"><span id="span_erro"></span></div>
                 </div>
                 <div class="endereco-campos">
@@ -180,24 +181,6 @@
             formEndereco.style.display = 'flex'
         }
         erro = false
-    }
-
-    // função para limpar a borda das inputs
-    function limpaBorda(input) {
-        if (input == confSenhaInput || input == senhaInput) {
-            senhaInput.style.border = 'none'
-            confSenhaInput.style.border = 'none'
-        } else {
-            input.style.border = 'none'
-        }
-    }
-
-    // função para verificar se a input tem erro e trocar a borda para vermelho
-    function verifErro(valIpt, input) {
-        if (valIpt == '') {
-            erro = true
-            input.style.border = 'solid 2px red'
-        }
     }
 
     // função que verifica se os campos do endereço estão preenchidos

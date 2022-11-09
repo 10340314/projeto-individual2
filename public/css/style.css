@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     display: flex;
 }
@@ -27,14 +27,16 @@ body {
 
 .header .container {
     justify-content: space-between;
+    align-items: center;
 }
 
 .navbar {
+    border: solid 2px pink;
     width: 40%;
     display: flex;
     justify-content: space-around;
     list-style: none;
-    align-self: center;
+    align-items: center;
 }
 
 .navbar a {
