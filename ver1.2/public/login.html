@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="login-banner">
+        <div class="header">
+            <div class="container">
+                <h1 class="titulo">Korean Music</h1>
+                <ul class="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="cadastro.html">Cadastro</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="alerta_erro">
+                <div class="card_erro" id="cardErro">
+                    <span id="mensagem_erro"></span>
+                </div>
+            </div>
+            <div class="form-login">
+                <div class="form-title">
+                    <h2>Faça o seu login</h2>
+                </div>
+                <div class="login-campos">
+                    <div class="login-campo">
+                        <span class="nome_campo">E-mail</span>
+                        <input type="email" id="ipt_email" autofocus placeholder="E-mail">
+                    </div>
+                    <div class="login-campo">
+                        <span class="nome_campo">Senha</span>
+                        <input type="password" id="ipt_pass" autofocus="******">
+                    </div>
+                    <div class="btn_forgot">
+                        <span class="forgot_pass"><a href="#">Esqueceu a senha?</a></span>
+                        <button onclick="verificar()">Entrar</button>
+                    </div>
+                    <span class="criar_acc">Não tem uma conta? <a href="#">Criar uma conta!</a></span>
+                    <div id="div_erros"><span id="span_erros">ADDASSD</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function verificar() {
+        div_erros.style.display = 'none'
+        var loginVar = ipt_email.value
+        var senhaVar = ipt_pass.value
+
+        fetch("usuarios/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                loginServer: loginVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("Then do Entrar")
+
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(JSON.stringify(json))
+
+                    sessionStorage.ID_USUARIO = json.id
+                    sessionStorage.NOME_USUARIO = json.nome
+                    sessionStorage.SOBRENOME_USUARIO = json.sobrenome
+                    sessionStorage.ID_GRUPOFAV = json.fkGrupoFav
+                    alert("Logado com sucesso!")
+
+                })
+            } else {
+                console.log("Houve um erro ao realizar o login!")
+
+                resposta.text().then(texto => {
+                    console.error(texto)
+                    div_erros.style.display = 'flex'
+                    span_erros.innerHTML = texto
+                })
+            }
+        }).catch(function (erro) {
+            console.log(erro)
+        })
+        return false
+    }
+</script>
