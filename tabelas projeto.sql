@@ -91,3 +91,65 @@ SELECT id FROM endereco WHERE cep = '09570410'
 -- SELECT select_or_insert('09570410', 'Rua Serafim Carlos', 'Osvaldo Cruz', 'São Caetano do Sul', 'SP', 43) as idInserido;
 -- drop function select_or_insert;
 -- DROP DATABASE projetoIndividual;
+
+CREATE TABLE grupo (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(40),
+    dataDebut DATE,
+    empresa VARCHAR(40)
+);
+
+CREATE TABLE album (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    fkGrupo INT,
+    FOREIGN KEY (fkGrupo) REFERENCES grupo (id),
+    nome VARCHAR(40),
+    dataLanc DATE,
+    cover VARCHAR(50)
+);
+
+CREATE TABLE tracklist (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    fkAlbum INT,
+    FOREIGN KEY (fkAlbum) REFERENCES album (id),
+    title VARCHAR(40),
+    genero VARCHAR(20)
+);
+
+CREATE TABLE usuario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(40),
+    fkFavGroup INT,
+    FOREIGN KEY (fkFavGroup) REFERENCES grupo (id)
+);
+
+INSERT INTO grupo (nome, dataDebut, empresa) VALUES
+	('BTS', '2013-06-13', 'HYBE LABELS');
+    
+INSERT INTO grupo (nome, dataDebut, empresa) VALUES
+	('NCT', '2020-01-01', 'SM ENTERTAINMENT');
+
+INSERT INTO album (fkGrupo, nome, dataLanc, cover) VALUES
+	(1, 'DARK & WILD', '2014-08-20', 'url(../assets/albums/darknwild.jpg');
+    
+INSERT INTO tracklist (fkAlbum, title, genero) VALUES
+	(1, 'What am I to you', 'Hip Hop'),
+    (1, 'Danger', 'Hip Hop');
+    
+SELECT grupo.nome nomeGrupo,
+	album.nome nomeAlbum,
+    tracklist.title musica
+FROM grupo
+JOIN album
+	ON grupo.id = album.fkGrupo
+JOIN tracklist
+	ON album.id = tracklist.fkAlbum
+WHERE grupo.id = 1;
+
+SELECT grupo.nome, 
+	count(fkFavGroup) as contFav
+FROM usuario
+JOIN grupo
+	ON usuario.fkFavGroup = grupo.id
+GROUP BY 1
+ORDER BY contFav DESC;
