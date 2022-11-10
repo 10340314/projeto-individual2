@@ -70,12 +70,16 @@
             verifErro(inputs[i].value, inputs[i])
         }
 
-
+        if (!erro) {
+            logar()
+        }
     }
     
     function logar() {
         div_erros.style.display = 'none'
-
+        var loginVar = emailInput.value
+        var senhaVar = senhaInput.value
+        
         fetch("usuarios/login", {
             method: "POST",
             headers: {
@@ -97,6 +101,10 @@
                     sessionStorage.SOBRENOME_USUARIO = json.sobrenome
                     sessionStorage.ID_GRUPOFAV = json.fkGrupoFav
                     alert("Logado com sucesso!")
+
+                    setTimeout(() => {
+                        window.location = "menuUser.html"
+                    }, "1000");
 
                 })
             } else {

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/usermenu.css">
 </head>
 
-<body>
+<body onload="grupoMaisVotado()">
     <div class="header">
         <div class="container">
             <h1 class="titulo">Korean Music</h1>
@@ -78,17 +78,16 @@
                         <div class="album-img-name">
                             <div class="album_img" id="fav_album_img"></div>
                             <div class="album-items">
-                                <div class="album_name">
-                                    <h3>DARK & WILD</h3>
+                                <div class="album_name" id="fav_album_name">
+                                    <!-- <h3>DARK & WILD</h3> -->
                                 </div>
                                 <span>Tracklist:</span>
-                                <ul>
-                                    <li>Danger</li>
-                                    <li>War of Hormone</li>
-                                    <li>Cypher pt. 3</li>
-                                    <li>Rain</li>
-                                    <li>Hiphop lover</li>
-                                </ul>
+                                <div id="tracklist">
+                                    <ul id="ul_tracklist">
+                                        <!-- <li>Danger</li> -->
+                                        <!-- <li>Rain</li> -->
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -100,18 +99,90 @@
 
 </html>
 
-<!-- Hallyu é um termo referente a popularização da cultura sul-coreana, que advém da junção de <i>Han</i> (coreano) e <i>Ryu</i> (que significa fluxo). -->
 
-<!-- <div class="menu">
-    <div class="container">
-        <div class="user-left-menu">
-            <div class="user-icon-name">
-                <img src="assets/user-icon.png" alt="">
-                <span class="user-name">Usuário</span>
-            </div>
-            <div class="ranking">
+<script>
+    // função para achar o grupo mais votado e adicionar na right-section
+    // adiciona na right-section o nome do grupo e a imagem do grupo mais votado (favorito) dentre os usuários cadastrados
+    function grupoMaisVotado(){
+        fetch(`/usuarios/grupoMaisVotado`)
+            .then(resposta => {
+                if (resposta.ok) {
+                    resposta.json().then(resposta => {
+                        console.log(`Dados do grupo mais votado: ${JSON.stringify(resposta)}`);
+                        var nomeGrupoFav = document.getElementById("most_fav_group_name")
+                        var imagemGrupoFav = document.getElementById("most_sel_group_img")
+                        nomeGrupoFav.innerHTML = resposta.nome
+                        imagemGrupoFav.style.backgroundImage = resposta.imagem
+                        sessionStorage.ID_FAVGROUP = resposta.id
+                        var idFavGroup = sessionStorage.ID_FAVGROUP
+                        // pegando o album e tracklist do grupo mais votado
+                        // para mostrar na right-section os dados
+                        pegarAlbumTracklist(idFavGroup)
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+            });
+    }
 
-            </div>
-        </div>
-    </div>
-</div> -->
+    function pegarAlbumTracklist(idFavGroup) {
+        fetch("/usuarios/pegarAlbumTracklist", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                grupoIdServer: idFavGroup
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    // console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    // armazenando a div que contém o nome do album favorito numa variável
+                    var albumName = document.getElementById("fav_album_name");
+
+                    // alterando o innerHTML dessa div para o nome do album que foi puxado do banco
+                    albumName.innerHTML = `<h3>${resposta[0].nomeAlbum}</h3>`
+
+                    // armazenando a div que contém a imagem do album favorito numa variável
+                    var albumImg = document.getElementById("fav_album_img")
+
+                    // alterando o backgroundImage dessa div para a imagem do album que foi puxado do banco
+                    albumImg.style.backgroundImage = `${resposta[0].imagem}`
+
+                    // var tracklist = document.getElementById("div_tracklist")
+                    
+                    // armazenando a lista que contém as músicas do álbum favorito numa variável
+                    var ulMusicas = document.getElementById("ul_tracklist")
+
+                    // iterando sobre o resultado que foi puxado do banco
+                    // o resultado contém o nome do grupo, o nome do álbum, o nome da música e a imagem do álbum
+                    for (let i = 0; i < resposta.length; i++) {
+                        // armazenando a música do index i da resposta numa variável
+                        var musica = resposta[i].musica;
+                        // console.log(musica)
+                        
+                        // criando um elemento li para adicionar a música à lista ul_tracklist
+                        var liMusica = document.createElement("li")
+                        // alterando o innerHTML da li para o id da música e o nome dela
+                        liMusica.innerHTML = `${i+1}. ${musica}`
+                        // adicionando à ul a li que contém o id e nome da música
+                        ulMusicas.appendChild(liMusica)
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+</script>

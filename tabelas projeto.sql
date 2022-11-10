@@ -16,7 +16,8 @@ CREATE TABLE grupos (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(45) NOT NULL,
     dataDebut DATE NOT NULL,
-    empresa VARCHAR(45) NOT NULL
+    empresa VARCHAR(45) NOT NULL,
+    imagem VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE usuario (
@@ -32,8 +33,56 @@ CREATE TABLE usuario (
     FOREIGN KEY (fkEndereco) REFERENCES endereco (id)
 );
 
-INSERT INTO grupos (nome, dataDebut, empresa) VALUES
-	('BTS', '2013-06-13', 'HYBE LABELS');
+CREATE TABLE album (
+	id INT,
+    fkGrupo INT,
+    FOREIGN KEY (fkGrupo) REFERENCES grupos (id),
+    PRIMARY KEY (id, fkGrupo),
+    nome VARCHAR(40),
+    dataLanc DATE,
+    cover VARCHAR(50)
+);
+
+CREATE TABLE tracklist (
+	id INT,
+    fkAlbum INT,
+    FOREIGN KEY (fkAlbum) REFERENCES album (id),
+    PRIMARY KEY (id, fkAlbum),
+    title VARCHAR(40),
+    genero VARCHAR(20)
+);
+
+CREATE TABLE votosAlbum (
+	id INT AUTO_INCREMENT,
+    fkUsuario INT,
+    fkAlbum INT,
+    FOREIGN KEY (fkUsuario) REFERENCES usuario (id),
+    FOREIGN KEY (fkAlbum) REFERENCES album (id),
+    PRIMARY KEY (id, fkUsuario, fkAlbum)
+);
+
+INSERT INTO grupos (nome, dataDebut, empresa, imagem) VALUES
+	('BTS', '2013-06-13', 'HYBE LABELS', 'url("../assets/grupos/btsgrupo.jpg")'),
+	('TWICE', '2015-10-20', 'JYP ENTERTAINMENT', 'url("../assets/grupos/twicegrupo.nsei")');
+    
+/*
+	('NCT', '2020-01-01', 'SM ENTERTAINMENT'),
+    ('BLACKPINK', '2016-08-08', 'YG ENTERTAINMENT');
+*/
+INSERT INTO album (id, fkGrupo, nome, dataLanc, cover) VALUES
+	(1, 1, 'DARK & WILD', '2014-08-20', 'url(../assets/albums/darknwild.jpg');
+    
+INSERT INTO tracklist (id, fkAlbum, title, genero) VALUES
+	(1, 1, 'What am I to you', 'Hip Hop'),
+    (2, 1, 'Danger', 'Hip Hop');
+
+INSERT INTO votosAlbum (fkUsuario, fkAlbum) VALUES
+	(1, 1);
+    
+INSERT INTO usuario (nome, sobrenome, email, dtNasc, senha, fkGrupoFav, fkEndereco) VALUES 
+	('teste', '1', 'teste1@gmail.com', '2000-03-14', '123', 1, 1),
+	('teste', '2', 'teste2@gmail.com', '2000-03-14', '123', 1, 1),
+	('teste', '3', 'teste3@gmail.com', '2000-03-14', '123', 2, 1);
 
 DELIMITER $
 CREATE FUNCTION select_or_insert(cepVar VARCHAR(8), ruaVar VARCHAR(45), bairroVar VARCHAR(45), cidadeVar VARCHAR(45), estadoVar CHAR(2), numVar INT)
@@ -92,64 +141,29 @@ SELECT id FROM endereco WHERE cep = '09570410'
 -- drop function select_or_insert;
 -- DROP DATABASE projetoIndividual;
 
-CREATE TABLE grupo (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(40),
-    dataDebut DATE,
-    empresa VARCHAR(40)
-);
-
-CREATE TABLE album (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    fkGrupo INT,
-    FOREIGN KEY (fkGrupo) REFERENCES grupo (id),
-    nome VARCHAR(40),
-    dataLanc DATE,
-    cover VARCHAR(50)
-);
-
-CREATE TABLE tracklist (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    fkAlbum INT,
-    FOREIGN KEY (fkAlbum) REFERENCES album (id),
-    title VARCHAR(40),
-    genero VARCHAR(20)
-);
-
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(40),
-    fkFavGroup INT,
-    FOREIGN KEY (fkFavGroup) REFERENCES grupo (id)
-);
-
-INSERT INTO grupo (nome, dataDebut, empresa) VALUES
-	('BTS', '2013-06-13', 'HYBE LABELS');
     
-INSERT INTO grupo (nome, dataDebut, empresa) VALUES
-	('NCT', '2020-01-01', 'SM ENTERTAINMENT');
-
-INSERT INTO album (fkGrupo, nome, dataLanc, cover) VALUES
-	(1, 'DARK & WILD', '2014-08-20', 'url(../assets/albums/darknwild.jpg');
-    
-INSERT INTO tracklist (fkAlbum, title, genero) VALUES
-	(1, 'What am I to you', 'Hip Hop'),
-    (1, 'Danger', 'Hip Hop');
-    
-SELECT grupo.nome nomeGrupo,
+-- SELECT PARA PEGAR O NOME DO GRUPO, O NOME DO ALBUM E A TRACKLIST DESSE ALBUM DE UM DETERMINADO GRUPO
+-- ESSE SELECT VAI SER UTILIZADO DUAS VEZES
+-- UMA VEZ UTILIZANDO COMO PARÂMETRO O FKFAVGRUPO DO USUARIO LOGADO
+-- OUTRA VEZ UTILIZANDO COMO PARÂMETRO O ID DO GRUPO DO RESULTADO DO SELECT MAIS ABAIXO
+SELECT grupos.nome nomeGrupo,
 	album.nome nomeAlbum,
-    tracklist.title musica
-FROM grupo
+    tracklist.title musica,
+    album.cover
+FROM grupos
 JOIN album
-	ON grupo.id = album.fkGrupo
+	ON grupos.id = album.fkGrupo
 JOIN tracklist
 	ON album.id = tracklist.fkAlbum
-WHERE grupo.id = 1;
+WHERE grupos.id = 1;
 
-SELECT grupo.nome, 
-	count(fkFavGroup) as contFav
+-- SELECT PARA ACHAR OS DADOS DO GRUPO MAIS VOTADO
+SELECT grupos.id,
+	grupos.nome,
+	count(fkGrupoFav) as contFav,
+    grupos.imagem imagem
 FROM usuario
-JOIN grupo
-	ON usuario.fkFavGroup = grupo.id
+JOIN grupos
+	ON usuario.fkGrupoFav = grupos.id
 GROUP BY 1
 ORDER BY contFav DESC;

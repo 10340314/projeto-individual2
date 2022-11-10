@@ -7,11 +7,26 @@ function testar(req, res) {
     res.json("ESTAMOS FUNCIONANDO!");
 }
 
-function listar(req, res) {
-    usuarioModel.listar()
+function pegarAlbumTracklist(req, res) {
+    var grupoId = req.body.grupoIdServer;
+    usuarioModel.pegarAlbumTracklist(grupoId).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function grupoMaisVotado(req, res) {
+    usuarioModel.grupoMaisVotado()
         .then(function (resultado) {
             if (resultado.length > 0) {
-                res.status(200).json(resultado);
+                res.status(200).json(resultado[0]);
             } else {
                 res.status(204).send("Nenhum resultado encontrado!")
             }
@@ -143,7 +158,8 @@ function cadastrar(req, res) {
 module.exports = {
     entrar,
     cadastrar,
-    listar,
+    grupoMaisVotado,
+    pegarAlbumTracklist,
     testar,
     verEndereco
 }
