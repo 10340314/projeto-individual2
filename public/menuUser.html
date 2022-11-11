@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/usermenu.css">
 </head>
 
-<body onload="grupoMaisVotado()">
+<body onload="grupoMaisVotado()" onload="userFavGroup()">
     <div class="header">
         <div class="container">
             <h1 class="titulo">Korean Music</h1>
@@ -33,11 +33,11 @@
                     <h1>Seu grupo favorito é</h1>
                 </div>
                 <div class="group-img-name">
-                    <h2><i>BTS</i></h2>
+                    <h2><i id="user_fav_group">BTS</i></h2>
                     <div class="group-img" id="user_group_img"></div>
                     <div class="group-desc">
                         <h4 style="margin: .3rem 0">Integrantes:</h4>
-                        <ul>
+                        <ul id="user_fav_group_members">
                             <li>RM</li>
                             <li>Jin</li>
                             <li>Suga</li>
@@ -48,9 +48,10 @@
                         </ul>
                     </div>
                     <div class="albums-desc">
-                        <h4 style="margin: .3rem 0">Albums:</h4>
-                        <div class="albums">
-                            <img src="assets/albums/2cool4skool.jpg" alt="">
+                        <h4 style="margin: .3rem 0">Alguns albums:</h4>
+                        <div class="albums" id="user_fav_groups_album">
+                            <div id="user_fav_group_album_img"></div>
+                            <!-- <img src="assets/albums/2cool4skool.jpg" alt=""> -->
                             <img src="assets/albums/orul82.jpg" alt="">
                             <img src="assets/albums/skoolluvafair.jpg" alt="">
                             <img src="assets/albums/darknwild.jpg" alt="">
@@ -70,10 +71,12 @@
                 </div>
                 <div class="rankings-items">
                     <h2><i>Grupo favorito da galera:</i></h2>
-                    <div class="group-img" id="most_sel_group_img"><h3 id="most_fav_group_name">NCT</h3></div>
+                    <div class="group-img" id="most_sel_group_img">
+                        <h3 id="most_fav_group_name">NCT</h3>
+                    </div>
                     <div class="fav-album">
                         <div class="item-title">
-                            <h2 style="margin-bottom: 0; margin-top: .4rem;"><i>Album favorito da galera:</i></h2>
+                            <h2 style="margin-bottom: 0; margin-top: .4rem;"><i>Album favorito desse artista:</i></h2>
                         </div>
                         <div class="album-img-name">
                             <div class="album_img" id="fav_album_img"></div>
@@ -101,9 +104,49 @@
 
 
 <script>
+
+    // TODO: rota já criada, só finalizar fetch e testar
+    // function para pegar o grupo favorito do usuario (usando a sessionStorage do login)
+    // e mostrar nas divs o nome do grupo, nome dos integrantes e as fotos de 5 albuns
+    function userFavGroup() {
+        fetch("usuarios/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                loginServer: loginVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("Then do Entrar")
+
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(JSON.stringify(json))
+                    // for de 1 a 5 para criar as divs usando o valor do index no ID da div
+                    // salvando cada um desses valores num vetor chamado divimagens
+                    // depois é só fazer o for do json e ir atribuindo, varrendo ao mesmo tempo o vetor das divs
+
+                })
+            } else {
+                console.log("Houve um erro ao procurar o grupo")
+
+                resposta.text().then(texto => {
+                    console.error(texto)
+                })
+            }
+        }).catch(function (erro) {
+            console.log(erro)
+        })
+        return false
+    }
+
+
+
     // função para achar o grupo mais votado e adicionar na right-section
     // adiciona na right-section o nome do grupo e a imagem do grupo mais votado (favorito) dentre os usuários cadastrados
-    function grupoMaisVotado(){
+    function grupoMaisVotado() {
         fetch(`/usuarios/grupoMaisVotado`)
             .then(resposta => {
                 if (resposta.ok) {
@@ -128,6 +171,7 @@
             });
     }
 
+    // function para pegar o album e tracklist mais votado do artista favorito
     function pegarAlbumTracklist(idFavGroup) {
         fetch("/usuarios/pegarAlbumTracklist", {
             method: "POST",
@@ -159,7 +203,7 @@
                     albumImg.style.backgroundImage = `${resposta[0].imagem}`
 
                     // var tracklist = document.getElementById("div_tracklist")
-                    
+
                     // armazenando a lista que contém as músicas do álbum favorito numa variável
                     var ulMusicas = document.getElementById("ul_tracklist")
 
@@ -169,11 +213,11 @@
                         // armazenando a música do index i da resposta numa variável
                         var musica = resposta[i].musica;
                         // console.log(musica)
-                        
+
                         // criando um elemento li para adicionar a música à lista ul_tracklist
                         var liMusica = document.createElement("li")
                         // alterando o innerHTML da li para o id da música e o nome dela
-                        liMusica.innerHTML = `${i+1}. ${musica}`
+                        liMusica.innerHTML = `${i + 1}. ${musica}`
                         // adicionando à ul a li que contém o id e nome da música
                         ulMusicas.appendChild(liMusica)
                     }

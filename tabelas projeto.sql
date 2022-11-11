@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS projetoIndividual;
+
 CREATE DATABASE projetoIndividual;
 
 USE projetoIndividual;

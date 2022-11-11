@@ -130,6 +130,13 @@
 .albums img {
     width: 15%;
 }
+
+.albums #user_fav_group_album_img {
+    background-image: url("../assets/albums/2cool4skool.jpg");
+    width: 15%;
+    background-size: cover;
+}
+
 /* .group-img-name img {
     width: 100%;
     height: 100%;

@@ -16,6 +16,10 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 
+router.post("/userFavGroup", function (req, res) {
+    usuarioController.userFavGroup(req, res);
+}) 
+
 router.post("/endereco", function (req, res) {
     usuarioController.verEndereco(req, res);
 })

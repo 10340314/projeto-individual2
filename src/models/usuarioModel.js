@@ -44,6 +44,17 @@ function entrar(email, senha) {
     return database.executar(instrucao);
 }
 
+function userFavGroup(idFavGroup) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function userFavGroup(): ", idFavGroup)
+    var instrucao = `
+        SELECT grupo.nome,
+            album.cover
+        FROM grupos WHERE id = ${idFavGroup};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 function cadastrar(nome, sobrenome, email, dtNasc, senha, favGroup, idEndereco) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, sobrenome, email, dtNasc, senha, favGroup);
@@ -70,6 +81,7 @@ module.exports = {
     entrar,
     cadastrar,
     grupoMaisVotado,
+    userFavGroup,
     pegarAlbumTracklist,
     verEndereco
 };
