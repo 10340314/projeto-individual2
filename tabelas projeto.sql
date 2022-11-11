@@ -78,13 +78,18 @@ INSERT INTO tracklist (id, fkAlbum, title, genero) VALUES
 	(1, 1, 'What am I to you', 'Hip Hop'),
     (2, 1, 'Danger', 'Hip Hop');
 
+/*
 INSERT INTO votosAlbum (fkUsuario, fkAlbum) VALUES
 	(1, 1);
-    
+*/
+
+/*
 INSERT INTO usuario (nome, sobrenome, email, dtNasc, senha, fkGrupoFav, fkEndereco) VALUES 
 	('teste', '1', 'teste1@gmail.com', '2000-03-14', '123', 1, 1),
 	('teste', '2', 'teste2@gmail.com', '2000-03-14', '123', 1, 1),
 	('teste', '3', 'teste3@gmail.com', '2000-03-14', '123', 2, 1);
+*/
+
 
 DELIMITER $
 CREATE FUNCTION select_or_insert(cepVar VARCHAR(8), ruaVar VARCHAR(45), bairroVar VARCHAR(45), cidadeVar VARCHAR(45), estadoVar CHAR(2), numVar INT)
