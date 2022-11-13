@@ -23,10 +23,8 @@ function pegarAlbumTracklist(req, res) {
 }
 
 function grupoMaisVotado(req, res) {
-    // console.log("Estou no controller do grupo mais votado")
     usuarioModel.grupoMaisVotado()
         .then(function (resultado) {
-            // console.log(`THEN do Controller do grupo mais votado. resultado: ${resultado}`)
             if (resultado.length > 0) {
                 res.status(200).json(resultado[0]);
             } else {
@@ -54,11 +52,11 @@ function entrar(req, res) {
         usuarioModel.entrar(email, senha)
             .then(
                 function (resultado) {
-                    // console.log(`\nResultados encontrados: ${resultado.length}`);
-                    // console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
                     if (resultado.length == 1) {
-                        // console.log(resultado);
+                        console.log(resultado);
                         res.json(resultado[0]);
                     } else if (resultado.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -87,7 +85,7 @@ function userFavGroup(req, res) {
             .then(
                 function (resultado) {
                     console.log(`\nResultados encontrados: ${resultado.length}`);
-                    // console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
                     if (resultado.length > 0) {
                         res.status(200).json(resultado);

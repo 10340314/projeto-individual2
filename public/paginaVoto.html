@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/usermenu.css"> -->
+    <link rel="stylesheet" href="css/paginaVoto.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo">Korean Music</h1>
+            <ul class="navbar">
+                <li><a href="#">Home</a></li>
+                <li class="menu_sair" onclick="sair()">Sair</li>
+                <div class="user-icon-name">
+                    <span>Olá, <span class="user-name" id="user_name_blabla"></span></span>
+                    <img src="assets/user-icon.png" alt="">
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="container">
+            <div class="menu-voto">
+                <div class="titulo-menu">
+                    <h1>VOTE NO SEU ÁLBUM FAVORITO DO <span id="nome_grupo">BTS</span></h1>
+                </div>
+                <div class="conteudo-voto">
+                    <div class="album-images">
+                        <div class="albuns-row">
+                            <img src="assets/albums/2cool4skool.jpg" alt="">
+                            <img src="assets/albums/orul82.jpg" alt="">
+                            <img src="assets/albums/skoolluvaffair.jpg" alt="">
+                        </div>
+                        <div class="albuns-row">
+                            <img src="assets/albums/darknwild.jpg" alt="">
+                            <img src="assets/albums/tmbmil1.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="box-votacao">
+                        <div class="botao-votar">
+                            <button onclick="votar()">Votar agora!</button>
+                        </div>
+                        <div class="informacao-votos"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    var idUsuario = sessionStorage.ID_USUARIO
+    function sair() {
+        sessionStorage.clear()
+        window.location = "index.html"
+    }
+</script>

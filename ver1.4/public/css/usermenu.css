@@ -34,11 +34,6 @@
     /* height: 200px; */
 }
 
-.menu_sair:hover {
-    border-bottom: solid 1px white;
-    cursor: pointer;
-}
-
 .left-section {
     /* border: solid 2px cornflowerblue; */
     display: flex;
@@ -111,9 +106,8 @@
 }
 
 #user_group_img {
-    /* background-image: url("../assets/bts2.jfif"); */
+    background-image: url("../assets/bts2.jfif");
 }
-
 
 #most_sel_group_img {
     background-image: url(../assets/nctbanner.jpg);
@@ -137,8 +131,8 @@
     width: 15%;
 }
 
-.albums div {
-    /* background-image: url("../assets/albums/2cool4skool.jpg"); */
+.albums #user_fav_group_album_img {
+    background-image: url("../assets/albums/2cool4skool.jpg");
     width: 15%;
     background-size: cover;
 }
@@ -218,8 +212,6 @@
 .album-items ul {
     list-style: none;
     padding: 0;
-    border: solid 2px red;
-    font-size: small;
 }
 
 .item-title {

@@ -1,0 +1,130 @@
+.header {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, .7), rgba(0, 0, 0, .4));
+    color: white;
+}
+
+.header .container ul {
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.user-icon-name {
+    width: 32%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-icon-name img {
+    width: 45px;
+    /* height: 200px; */
+}
+
+.titulo {
+    align-self: center;
+}
+
+
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- MENU VOTO =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+/* .main-content {
+    border: solid 2px chartreuse;
+} */
+
+.main-content {
+    display: flex;
+    /* border: solid 2px chartreuse; */
+}
+
+.main-content .container {
+    /* border: solid 2px purple; */
+    width: 95%;
+    margin: 0 auto;
+    height: 1000px;
+}
+
+.menu-voto {
+    display: flex;
+    flex-direction: column;
+    /* border: solid 2px black; */
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.titulo-menu {
+    display: flex;
+    justify-content: center;
+}
+
+.titulo-menu h1 {
+    color: white;
+    text-shadow: 2px 3px 0 black;
+    font-size: 50px;
+}
+
+.conteudo-voto {
+    /* border: solid 2px red; */
+    display: flex;
+    flex: column;
+    height: 90%;
+}
+
+.album-images {
+    background-color: rgba(0, 0, 0, .3);
+    border-radius: 4px;
+    /* border: solid 2px violet; */
+    width: 70%;
+}
+
+.albuns-row {
+    /* border: solid 2px chartreuse; */
+    height: 50%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.albuns-row img {
+    /* border: solid 2px aqua; */
+    margin: auto 0;
+    height: 70%;
+}
+
+.box-votacao {
+    /* border: solid 2px blue; */
+    width: 30%;
+}
+
+.botao-votar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    /* border: solid 2px palevioletred; */
+}
+
+.botao-votar button {
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 600;
+    width: 40%;
+    height: 50%;
+    padding: 0.7rem 1.2rem;
+    align-self: center;
+    transition: background .5s;
+}
+
+.botao-votar button:hover {
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
