@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="css/paginaVoto.css">
 </head>
 
-<body>
+<body onload="pegarAlbums()">
     <div class="header">
         <div class="container">
             <h1 class="titulo">Korean Music</h1>
             <ul class="navbar">
-                <li><a href="#">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li class="menu_sair" onclick="sair()">Sair</li>
                 <div class="user-icon-name">
                     <span>Olá, <span class="user-name" id="user_name_blabla"></span></span>
@@ -29,25 +29,47 @@
         <div class="container">
             <div class="menu-voto">
                 <div class="titulo-menu">
-                    <h1>VOTE NO SEU ÁLBUM FAVORITO DO <span id="nome_grupo">BTS</span></h1>
+                    <h1>VOTE NO SEU ÁLBUM FAVORITO</h1>
                 </div>
                 <div class="conteudo-voto">
                     <div class="album-images">
-                        <div class="albuns-row">
-                            <img src="assets/albums/2cool4skool.jpg" alt="">
-                            <img src="assets/albums/orul82.jpg" alt="">
-                            <img src="assets/albums/skoolluvaffair.jpg" alt="">
+                        <div class="selecionar-artista">
+                            Selecione o artista:
+                            <select name="" id="sel_grupos" onchange="mostrarAlbums()">
+                                <option value="">----------</option>
+                                <option value="1">BTS</option>
+                                <option value="2">TWICE</option>
+                                <option value="3">NCT</option>
+                                <option value="4">BLACKPINK</option>
+                                <option value="5">EXO</option>
+                                <option value="6">ITZY</option>
+                            </select>
                         </div>
                         <div class="albuns-row">
-                            <img src="assets/albums/darknwild.jpg" alt="">
-                            <img src="assets/albums/tmbmil1.jpg" alt="">
+                            <img src="" alt="" id="album_img1" onclick="selecionarAlbum(1)">
+                            <img src="" alt="" id="album_img2" onclick="selecionarAlbum(2)">
+                            <img src="" alt="" id="album_img3" onclick="selecionarAlbum(3)">
+                        </div>
+                        <div class="albuns-row">
+                            <img src="" alt="" id="album_img4" onclick="selecionarAlbum(4)">
+                            <img src="" alt="" id="album_img5" onclick="selecionarAlbum(5)">
                         </div>
                     </div>
                     <div class="box-votacao">
                         <div class="botao-votar">
                             <button onclick="votar()">Votar agora!</button>
                         </div>
-                        <div class="informacao-votos"></div>
+                        <div class="informacao-votos">
+                            <div class="qtd-votos">
+                                <h3>Total de votos: 400</h3>
+                            </div>
+                            <div class="info-voto" id="infoVoto" style="display: none">
+                                <h4>Você escolheu o álbum</h4>
+                                <h4 id="albumname">DARK & WILD</h4>
+                                <h4>de</h4>
+                                <h4 id="artistname">BTS</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,8 +82,120 @@
 
 <script>
     var idUsuario = sessionStorage.ID_USUARIO
+    var nome = sessionStorage.NOME_USUARIO
+    var sobrenome = sessionStorage.SOBRENOME_USUARIO
+    var idVoto = sessionStorage.ID_VOTO
+    var albumSelecionado = 0
+    user_name_blabla.innerHTML = `${nome} ${sobrenome}`
+    var bts = []
+    var twice = []
+    var nct = []
+    var grupos = [bts, twice]
     function sair() {
         sessionStorage.clear()
         window.location = "index.html"
+    }
+
+    function teste() {
+        alert('teste')
+    }
+
+    function pegarAlbums() {
+        fetch(`/usuarios/pegarAlbums`)
+            .then(resposta => {
+                if (resposta.ok) {
+                    resposta.json().then(resposta => {
+                        // console.log(JSON.stringify(resposta))
+                        // loop para inserir no vetor de grupos o json do registro do banco respectivo do grupo
+                        // o registro do banco contém o id, nome do grupo, nome do álbum e o cover do álbum
+                        for (let i = 0; i < resposta.length; i++) {
+                            grupos[(resposta[i].idGrupo) - 1].push(resposta[i])
+                        }
+                        // console.log(grupos)
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+            });
+    }
+    var album1 = document.getElementById("album_img1")
+    var album2 = document.getElementById("album_img2")
+    var album3 = document.getElementById("album_img3")
+    var album4 = document.getElementById("album_img4")
+    var album5 = document.getElementById("album_img5")
+    var albumImagens = [album1, album2, album3, album4, album5]
+    var grupoSelecionado = 0
+    function mostrarAlbums() {
+        infoVoto.style.display = 'none'
+        grupoSelecionado = sel_grupos.value
+        if (grupoSelecionado) {
+            albumSelecionado = 0
+            for (let i = 0; i < albumImagens.length; i++) {
+                albumImagens[i].src = grupos[grupoSelecionado - 1][i].cover
+            }
+        } else {
+            grupoSelecionado = 0
+            albumSelecionado = 0
+            for (let i = 0; i < albumImagens.length; i++) {
+                albumImagens[i].src = ""
+            }
+        }
+    }
+
+    function selecionarAlbum(n) {
+        albumSelecionado = n
+        infoVoto.style.display = 'flex'
+        albumname.innerHTML = grupos[grupoSelecionado - 1][n - 1].nomeAlbum
+        artistname.innerHTML = grupos[grupoSelecionado - 1][n - 1].nomeGrupo
+    }
+
+    function votar(votoAlbum) {
+        if (albumSelecionado != 0 && grupoSelecionado != 0) {
+            if (Number(idVoto)) {
+                var instrucao = `UPDATE votosAlbum SET fkGrupo = ${grupoSelecionado}, fkAlbum = ${albumSelecionado} WHERE id = ${Number(idVoto)};`
+            } else {
+                var instrucao = `
+                INSERT INTO votosAlbum (fkUsuario, fkAlbum, fkGrupo, dataVoto) VALUES
+                    (${idUsuario}, ${albumSelecionado}, ${grupoSelecionado}, now());
+                `
+            }
+            fetch("/usuarios/registrarVoto", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    instrucaoServer: instrucao,
+                })
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta)
+
+                if (resposta.ok) {
+                    alert("Voto registrado com sucesso!")
+                    resposta.json().then(json => {
+                        // console.log(json)
+                        // console.log(`ID : ${json.insertId}`)
+                        // caso seja a primeira ocorrência, salva em uma sessionStorage e variável qual o ID inserido
+                        // para que o ID de voto salvo ao fazer o login seja atualizado e não fique inserindo várias vezes
+                        if (json.insertId) {
+                            sessionStorage.ID_VOTO = json.insertId
+                            idVoto = sessionStorage.ID_VOTO
+                        }
+                    });
+                } else {
+                    resposta.text().then(texto => {
+                        console.log(`Erro: ${texto}`)
+                    })
+                }
+            }).catch(function (resposta) {
+                console.log(`ERRO: ${resposta}`)
+            })
+            return false
+        } else {
+            console.log("Grupo e álbum não foram selecionados. VOTO INVÁLIDO. Não realizar instrução")
+        }
     }
 </script>

@@ -225,3 +225,47 @@ JOIN grupos
 	ON usuario.fkGrupoFav = grupos.id
 GROUP BY 1
 ORDER BY contFav DESC;
+
+-- SELECT do LOGIN
+DESC votosAlbum;
+ SELECT usuario.*,
+	votosAlbum.id idVoto,
+	votosAlbum.fkUsuario,
+	votosAlbum.fkAlbum,
+	votosAlbum.fkGrupo,
+	votosAlbum.dataVoto
+FROM usuario
+LEFT JOIN votosAlbum
+	ON usuario.id = votosAlbum.fkUsuario
+WHERE email = 'vd@gmail.com' AND senha = '123';
+
+/*
+SELECT *
+FROM votosAlbum
+JOIN album	
+	ON votosAlbum.fkAlbum = album.id
+JOIN grupos
+	ON grupos.id = album.fkGrupo
+	AND grupos.id = votosAlbum.fkGrupo;
+
+UPDATE votosAlbum SET fkGrupo = 2, fkAlbum = 1 WHERE id = 4;
+
+DELETE FROM votosAlbum WHERE id = 4;
+
+INSERT INTO votosAlbum (fkUsuario, fkAlbum, fkGrupo, dataVoto) VALUES
+	(1, 1, 1, now());
+*/
+
+INSERT INTO votosAlbum (fkUsuario, fkAlbum, fkGrupo, dataVoto) VALUES
+	(1, 1, 1, now());
+
+-- SELECT PARA PEGAR TODOS OS ALBUMS DE TODOS OS ARTISTAS
+SELECT grupos.id idGrupo,
+        grupos.nome nomeGrupo,
+        album.id idAlbum,
+        album.nome nomeAlbum,
+	    album.cover
+    FROM album
+    JOIN grupos
+	    ON grupos.id = album.fkGrupo
+    ORDER BY grupos.id;

@@ -116,7 +116,7 @@
 
 
 #most_sel_group_img {
-    background-image: url(../assets/nctbanner.jpg);
+    /* background-image: url(../assets/nctbanner.jpg); */
 }
 
 .albums-desc {
@@ -176,7 +176,7 @@
 #fav_album_img {
     /* border: solid 2px blue; */
     width: 50%;
-    background-image: url("../assets/albums/nct_irregular.png");
+    /* background-image: url("../assets/albums/nct_irregular.png"); */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

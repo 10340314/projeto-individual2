@@ -17,6 +17,23 @@ function grupoMaisVotado() {
     return database.executar(instrucao);
 }
 
+function pegarAlbums() {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pegarAlbums()");
+    var instrucao = `
+    SELECT grupos.id idGrupo,
+        grupos.nome nomeGrupo,
+        album.id idAlbum,
+        album.nome nomeAlbum,
+	    album.cover
+    FROM album
+    JOIN grupos
+	    ON grupos.id = album.fkGrupo
+    ORDER BY grupos.id;
+    `;
+    // console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function pegarAlbumTracklist(grupoId) {
     // console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucao = `
@@ -38,7 +55,16 @@ function pegarAlbumTracklist(grupoId) {
 function entrar(email, senha) {
     // console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucao = `
-        SELECT * FROM usuario WHERE email = '${email}' AND senha = '${senha}';
+    SELECT usuario.*,
+	    votosAlbum.id idVoto,
+        votosAlbum.fkUsuario,
+        votosAlbum.fkAlbum,
+        votosAlbum.fkGrupo,
+        votosAlbum.dataVoto
+    FROM usuario
+    LEFT JOIN votosAlbum
+	    ON usuario.id = votosAlbum.fkUsuario
+    WHERE email = '${email}' AND senha = '${senha}';
     `;
     // console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -72,6 +98,11 @@ function cadastrar(nome, sobrenome, email, dtNasc, senha, favGroup, idEndereco) 
     return database.executar(instrucao);
 }
 
+function registrarVoto(instrucao) {
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function verEndereco(cep, rua, bairro, cidade, estado, num) {
     // console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verEndereco()");
     var instrucao = `
@@ -86,6 +117,8 @@ module.exports = {
     cadastrar,
     grupoMaisVotado,
     userFavGroup,
+    registrarVoto,
+    pegarAlbums,
     pegarAlbumTracklist,
     verEndereco
 };

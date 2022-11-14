@@ -11,9 +11,17 @@ router.get("/grupoMaisVotado", function (req, res) {
     usuarioController.grupoMaisVotado(req, res);
 });
 
+router.get("/pegarAlbums", function (req, res) {
+    usuarioController.pegarAlbums(req, res);
+});
+
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
+})
+
+router.post("/registrarVoto", function (req, res) {
+    usuarioController.registrarVoto(req, res);
 })
 
 router.post("/userFavGroup", function (req, res) {

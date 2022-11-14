@@ -25,7 +25,10 @@
     align-self: center;
 }
 
-
+.menu_sair:hover {
+    border-bottom: solid 1px white;
+    cursor: pointer;
+}
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- MENU VOTO =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
@@ -36,19 +39,18 @@
 .main-content {
     display: flex;
     /* border: solid 2px chartreuse; */
+    /* height: 1000px; */
 }
 
 .main-content .container {
     /* border: solid 2px purple; */
     width: 95%;
-    margin: 0 auto;
-    height: 1000px;
 }
 
 .menu-voto {
+    /* border: solid 2px black; */
     display: flex;
     flex-direction: column;
-    /* border: solid 2px black; */
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -66,37 +68,42 @@
 }
 
 .conteudo-voto {
-    /* border: solid 2px red; */
+    /* border: solid 2px black; */
     display: flex;
     flex: column;
-    height: 90%;
+    height: 700px;
 }
 
 .album-images {
+    /* border: solid 2px violet; */
+    display: flex;
+    flex-direction: column;
     background-color: rgba(0, 0, 0, .3);
     border-radius: 4px;
-    /* border: solid 2px violet; */
+    /* height: 400px; */
     width: 70%;
 }
 
 .albuns-row {
     /* border: solid 2px chartreuse; */
     height: 50%;
-    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    align-items: center;
 }
 
 .albuns-row img {
     /* border: solid 2px aqua; */
-    margin: auto 0;
-    height: 70%;
+    /* margin: auto 0; */
+    height: 300px;
 }
 
 .box-votacao {
     /* border: solid 2px blue; */
     width: 30%;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .botao-votar {
@@ -128,3 +135,70 @@
     cursor: pointer;
 }
 
+.informacao-votos {
+    /* border: solid 2px crimson; */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: rgba(0, 0, 0, .3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 0 3%;
+    height: 80%;
+}
+
+.qtd-votos {
+    /* border: solid 2px cadetblue; */
+    width: 100%;
+    background-color: rgba(255, 255, 255, .7);
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 80px;
+    border-bottom-left-radius: 80px;
+}
+
+.qtd-votos h3 {
+    text-align: center;
+    font-size: 23px;
+}
+
+.info-voto {
+    /* border: solid 2px cadetblue; */
+    color: #ffffff;
+    text-shadow: 1px 1px 0 black;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-voto h4 {
+    font-size: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.selecionar-artista {
+    margin-top: 1%;
+    align-self: center;
+    font-size: 22px;
+    color: white;
+    text-shadow: 1px 1px 0 #000000;
+}
+
+.selecionar-artista select {
+    background: rgba(255, 255, 255, .3);
+    border: none;
+    outline: none;
+    padding: .4rem .9rem;
+    font-family: 'Poppins';
+    font-size: 20px;
+    border-radius: 100px;
+    transition: background .5s;
+}
+
+select:focus {
+    background: white;
+}

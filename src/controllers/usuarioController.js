@@ -41,6 +41,25 @@ function grupoMaisVotado(req, res) {
         );
 }
 
+function pegarAlbums(req, res) {
+    console.log("Estou no controller do pegarAlbums")
+    usuarioModel.pegarAlbums()
+        .then(function (resultado) {
+            // console.log(`THEN do Controller do grupo mais votado. resultado: ${resultado}`)
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function entrar(req, res) {
     var email = req.body.loginServer;
     var senha = req.body.senhaServer;
@@ -186,12 +205,43 @@ function cadastrar(req, res) {
     }
 }
 
+function registrarVoto(req, res) {
+    var instrucao = req.body.instrucaoServer
+    // var idUsuario = req.body.idUsuarioServer
+    // var idVoto = req.body.idVotoServer
+    // var fkGrupo = req.body.fkGrupoServer
+    // var fkAlbum = req.body.fkAlbumServer
+
+    // Faça as validações dos valores
+    if (instrucao == undefined) {
+        res.status(400).send("Sua instrução está undefined!");
+    } else {
+        usuarioModel.registrarVoto(instrucao)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao registrar o voto! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).send("Houve um erro ao registrar o voto!");
+                }
+            );
+    }
+}
+
 module.exports = {
     entrar,
     cadastrar,
     grupoMaisVotado,
     pegarAlbumTracklist,
+    registrarVoto,
     userFavGroup,
+    pegarAlbums,
     testar,
     verEndereco
 }
