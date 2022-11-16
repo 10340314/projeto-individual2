@@ -95,6 +95,39 @@ INSERT INTO album (id, fkGrupo, nome, dataLanc, cover) VALUES
 
 /* TRACKLIST ALBUNS BTS */
 INSERT INTO tracklist (id, fkAlbum, fkGrupo, title, duracao, genero) VALUES
+	(1, 1, 1, 'Intro: 2 Cool 4 Skool', '1:03', 'Hip Hop'),
+    (2, 1, 1, 'We Are Bulletproof Pt.2', '3:43', 'Hip Hop'),
+    (3, 1, 1, 'Skit: Circle Room Talk', '2:11', 'Skit'),
+    (4, 1, 1, 'No More Dream', '3:42', 'Hip Hop'),
+    (5, 1, 1, 'Interlude', '0:52', 'Hip Hop'),
+    (6, 1, 1, 'Like', '3:51', 'Hip Hop'),
+    (7, 1, 1, 'Outro: Circle Room Cypher', '5:23', 'Hip Hop');
+    
+INSERT INTO tracklist (id, fkAlbum, fkGrupo, title, duracao, genero) VALUES
+	(1, 2, 1, 'Intro: O!RUL8,2?', '1:10', 'Hip Hop'),
+    (2, 2, 1, 'N.O', '3:29', 'Hip Hop'),
+    (3, 2, 1, 'We On', '3:50', 'Hip Hop'),
+    (4, 2, 1, 'Skit: R U Happy Now?', '2:28', 'Skit'),
+    (5, 2, 1, 'If I Ruled the World', '4:07', 'Hip Hop'),
+    (6, 2, 1, 'Coffee', '4:20', 'Hip Hop'),
+    (7, 2, 1, 'BTS Cypher Pt.1', '2:11', 'Hip Hop'),
+    (8, 2, 1, 'Attack On Bangtan', '4:06', 'Hip Hop'),
+    (9, 2, 1, 'Paldogangsan', '3:25', 'Hip Hop'),
+    (10, 2, 1, 'Outro: Luv in Skool', '1:26', 'Hip Hop');
+    
+INSERT INTO tracklist (id, fkAlbum, fkGrupo, title, duracao, genero) VALUES
+	(1, 3, 1, 'Intro: Skool Luv Affair', '2:58', 'Hip Hop'),
+    (2, 3, 1, 'Boy in Luv', '3:50', 'K-Pop'),
+    (3, 3, 1, 'Skit: Soulmate', '1:32', 'Skit'),
+    (4, 3, 1, 'Where You From', '4:00', 'Hip Hop'),
+    (5, 3, 1, 'Just One Day', '3:59', 'K-Pop'),
+    (6, 3, 1, 'Tomorrow', '4:21', 'Hip Hop'),
+    (7, 3, 1, 'BTS Cypher Pt.2: Triptych', '4:48', 'Hip Hop'),
+    (8, 3, 1, 'Spine Breaker', '3:58', 'Hip Hop'),
+    (9, 3, 1, 'Jump', '3:56', 'Hip Hop'),
+    (10, 3, 1, 'Outro: Propose', '2:02', 'Hip Hop');
+
+INSERT INTO tracklist (id, fkAlbum, fkGrupo, title, duracao, genero) VALUES
 	(1, 4, 1, 'What Am I to You', '2:45', 'Hip Hop'),
     (2, 4, 1, 'Danger', '4:05', 'Hip Hop'),
     (3, 4, 1, 'War of Hormone', '4:25', 'Hip Hop'),
@@ -108,7 +141,18 @@ INSERT INTO tracklist (id, fkAlbum, fkGrupo, title, duracao, genero) VALUES
     (11, 4, 1, '24/7=Heaven', '3:46', 'Hip Hop'),
     (12, 4, 1, 'Look Here', '3:38', 'Hip Hop'),
     (13, 4, 1, 'So 4 more', '3:55', 'Hip Hop'),
-    (14, 4, 1, 'Outro: Do You Think It Makes Sense?', '2:52', 'Hip Hop');
+    (14, 4, 1, 'Outro: Do You Think It Makes Sense?', '2:52', 'Hip Hop');    
+
+INSERT INTO tracklist (id, fkAlbum, fkGrupo, title, duracao, genero) VALUES
+	(1, 5, 1, 'Intro: The Most Beautiful Moment in Life', '2:03', 'Hip Hop'),
+    (2, 5, 1, 'I Need U', '3:30', 'K-Pop'),
+    (3, 5, 1, 'Hold Me Tight', '4:34', 'Hip Hop'),
+    (4, 5, 1, 'Skit: Expectation!', '2:27', 'Skit'),
+    (5, 5, 1, 'Dope', '4:00', 'K-Pop'),
+    (6, 5, 1, 'Boyz With Fun', '4:04', 'K-Pop'),
+    (7, 5, 1, 'Converse High', '3:29', 'K-Pop'),
+    (8, 5, 1, 'Moving On', '4:52', 'K-Pop'),
+    (9, 5, 1, 'Outro: Love Is Not Over', '2:23', 'K-pop');
 
 /* TRACKLIST ALBUNS TWICE */
 INSERT INTO tracklist (id, fkAlbum, fkGrupo, title, duracao, genero) VALUES
@@ -130,7 +174,7 @@ JOIN album
 	ON grupos.id = album.fkGrupo
 JOIN tracklist
 	ON album.id = tracklist.fkAlbum AND grupos.id = tracklist.fkGrupo
-WHERE grupos.id = 1;
+WHERE grupos.id = 1 AND album.id = 1;
 
 /*
 INSERT INTO votosAlbum (fkUsuario, fkAlbum, fkGrupo, dataVoto) VALUES
@@ -146,14 +190,6 @@ SELECT grupos.id,
 	    ON usuario.fkGrupoFav = grupos.id
     GROUP BY 1
     ORDER BY contFav DESC;
-    
-
-/*
-INSERT INTO usuario (nome, sobrenome, email, dtNasc, senha, fkGrupoFav, fkEndereco) VALUES 
-	('teste', '1', 'teste1@gmail.com', '2000-03-14', '123', 1, 1),
-	('teste', '2', 'teste2@gmail.com', '2000-03-14', '123', 1, 1),
-	('teste', '3', 'teste3@gmail.com', '2000-03-14', '123', 2, 1);
-*/
 
 
 DELIMITER $
@@ -234,10 +270,9 @@ DESC votosAlbum;
 	votosAlbum.fkAlbum,
 	votosAlbum.fkGrupo,
 	votosAlbum.dataVoto
-FROM usuario
+FROM usuario	
 LEFT JOIN votosAlbum
-	ON usuario.id = votosAlbum.fkUsuario
-WHERE email = 'vd@gmail.com' AND senha = '123';
+	ON usuario.id = votosAlbum.fkUsuario;
 
 /*
 SELECT *
@@ -254,10 +289,10 @@ DELETE FROM votosAlbum WHERE id = 4;
 
 INSERT INTO votosAlbum (fkUsuario, fkAlbum, fkGrupo, dataVoto) VALUES
 	(1, 1, 1, now());
-*/
 
 INSERT INTO votosAlbum (fkUsuario, fkAlbum, fkGrupo, dataVoto) VALUES
 	(1, 1, 1, now());
+*/
 
 -- SELECT PARA PEGAR TODOS OS ALBUMS DE TODOS OS ARTISTAS
 SELECT grupos.id idGrupo,
@@ -269,3 +304,38 @@ SELECT grupos.id idGrupo,
     JOIN grupos
 	    ON grupos.id = album.fkGrupo
     ORDER BY grupos.id;
+    
+-- SELECT PARA PEGAR O ABLUM MAIS VOTADO DO ARTISTA FAVORITO
+SELECT
+	grupos.id idGrupo,
+	grupos.nome nomeGrupo,
+    album.id idAlbum,
+	album.nome nomeAlbum,
+    COUNT(*) contagem
+FROM grupos
+JOIN album
+	ON grupos.id = album.fkGrupo
+JOIN votosAlbum
+	ON grupos.id = votosAlbum.fkGrupo AND album.id = votosAlbum.fkAlbum
+GROUP BY 2, 3
+HAVING nomeGrupo = 'BTS'
+ORDER BY 5 DESC;
+
+
+/*
+esse select pega a contagem distinta das combinacoes album e grupo - ou seja, se tiver fkAlbum 1 e fkGrupo 1 mais de uma vez, ele so conta como uma.alter
+não vou usar, só deixei registrado msm
+SELECT grupos.nome nomeGrupo,
+	album.nome nomeAlbum,
+	COUNT(DISTINCT votosAlbum.fkGrupo, votosAlbum.fkAlbum) cont_album_artistax
+FROM grupos
+JOIN album
+	ON grupos.id = album.fkGrupo
+JOIN votosAlbum
+	ON grupos.id = votosAlbum.fkGrupo AND album.id = votosAlbum.fkAlbum
+GROUP BY 2;
+*/
+
+SELECT
+	COUNT(*) qtdVotos
+FROM votosAlbum;

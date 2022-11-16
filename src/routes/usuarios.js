@@ -15,6 +15,10 @@ router.get("/pegarAlbums", function (req, res) {
     usuarioController.pegarAlbums(req, res);
 });
 
+router.get("/pegarQtdVotos", function (req, res) {
+    usuarioController.pegarQtdVotos(req, res);
+});
+
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
@@ -34,6 +38,10 @@ router.post("/endereco", function (req, res) {
 
 router.post("/pegarAlbumTracklist", function (req, res) {
     usuarioController.pegarAlbumTracklist(req, res);
+});
+
+router.post("/albumMaisVotado", function (req, res) {
+    usuarioController.albumMaisVotado(req, res);
 });
 
 router.post("/login", function (req, res) {

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/paginaVoto.css">
 </head>
 
-<body onload="pegarAlbums()">
+<body onload="pegarAlbums(), pegarQtdVotos()">
     <div class="header">
         <div class="container">
             <h1 class="titulo">Korean Music</h1>
@@ -29,7 +29,9 @@
         <div class="container">
             <div class="menu-voto">
                 <div class="titulo-menu">
+                    <div class="botao-voltar"><a href="menuUser.html">Voltar</a></div>
                     <h1>VOTE NO SEU ÁLBUM FAVORITO</h1>
+                    <div class="invisivel"></div>
                 </div>
                 <div class="conteudo-voto">
                     <div class="album-images">
@@ -61,7 +63,7 @@
                         </div>
                         <div class="informacao-votos">
                             <div class="qtd-votos">
-                                <h3>Total de votos: 400</h3>
+                                <h3>Total de votos: <span id="span_qtdVotos"></span></h3>
                             </div>
                             <div class="info-voto" id="infoVoto" style="display: none">
                                 <h4>Você escolheu o álbum</h4>
@@ -98,6 +100,23 @@
 
     function teste() {
         alert('teste')
+    }
+
+    function pegarQtdVotos() {
+        fetch(`/usuarios/pegarQtdVotos`)
+            .then(resposta => {
+                if (resposta.ok) {
+                    resposta.json().then(resposta => {
+                        var qtdVotos = resposta.qtdVotos
+                        span_qtdVotos.innerHTML = qtdVotos
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+            });
     }
 
     function pegarAlbums() {
@@ -184,6 +203,7 @@
                             sessionStorage.ID_VOTO = json.insertId
                             idVoto = sessionStorage.ID_VOTO
                         }
+                        pegarQtdVotos()
                     });
                 } else {
                     resposta.text().then(texto => {
@@ -193,7 +213,6 @@
             }).catch(function (resposta) {
                 console.log(`ERRO: ${resposta}`)
             })
-            return false
         } else {
             console.log("Grupo e álbum não foram selecionados. VOTO INVÁLIDO. Não realizar instrução")
         }

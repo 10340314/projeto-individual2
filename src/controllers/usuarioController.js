@@ -9,9 +9,25 @@ function testar(req, res) {
 
 function pegarAlbumTracklist(req, res) {
     var grupoId = req.body.grupoIdServer;
-    usuarioModel.pegarAlbumTracklist(grupoId).then(function (resultado) {
+    var idAlbum = req.body.albumFavIdServer
+    usuarioModel.pegarAlbumTracklist(grupoId, idAlbum).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function albumMaisVotado(req, res) {
+    var nomeGrupo = req.body.nomeGrupoFavServer;
+    usuarioModel.albumMaisVotado(nomeGrupo).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado[0]);
         } else {
             res.status(204).send("Nenhum resultado encontrado!")
         }
@@ -50,6 +66,23 @@ function pegarAlbums(req, res) {
                 res.status(200).json(resultado);
             } else {
                 res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function pegarQtdVotos(req, res) {
+    usuarioModel.pegarQtdVotos()
+        .then(function (resultado) {
+            if (resultado.length == 1) {
+                res.status(200).json(resultado[0]);
+            } else {
+                res.status(204).send("Nenhum voto registrado encontrado!")
             }
         }).catch(
             function (erro) {
@@ -239,7 +272,9 @@ module.exports = {
     cadastrar,
     grupoMaisVotado,
     pegarAlbumTracklist,
+    pegarQtdVotos,
     registrarVoto,
+    albumMaisVotado,
     userFavGroup,
     pegarAlbums,
     testar,

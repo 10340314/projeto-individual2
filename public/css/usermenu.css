@@ -218,7 +218,7 @@
 .album-items ul {
     list-style: none;
     padding: 0;
-    border: solid 2px red;
+    /* border: solid 2px red; */
     font-size: small;
 }
 

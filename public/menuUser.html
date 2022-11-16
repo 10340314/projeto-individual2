@@ -102,7 +102,7 @@
     function abrirPagVoto() {
         window.location = "paginaVoto.html"
     }
-    
+
     function sair() {
         sessionStorage.clear()
         window.location = "index.html"
@@ -111,7 +111,7 @@
     var nomeUsuario = sessionStorage.NOME_USUARIO
     var sobrenomeUsuario = sessionStorage.SOBRENOME_USUARIO
     user_name_blabla.innerHTML = `${nomeUsuario} ${sobrenomeUsuario}`
-    
+
     var grupoFavUsuario = sessionStorage.ID_USER_FAVGROUP
     // TODO: rota já criada, só finalizar fetch e testar
     // function para pegar o grupo favorito do usuario (usando a sessionStorage do login)
@@ -174,9 +174,12 @@
                         imagemGrupoFav.style.backgroundImage = `url(../${resposta.imagem})`
                         sessionStorage.ID_GRUPOMAISVOTADO = resposta.id
                         var idFavGroup = sessionStorage.ID_GRUPOMAISVOTADO
+                        sessionStorage.NOME_GRUPOFAVORITO = resposta.nome
+                        var nomeGrupoFavorito = sessionStorage.NOME_GRUPOFAVORITO
                         // pegando o album e tracklist do grupo mais votado
                         // para mostrar na right-section os dados
-                        pegarAlbumTracklist(idFavGroup)
+                        albumMaisVotado(nomeGrupoFavorito)
+                        // pegarAlbumTracklist(idFavGroup)
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
@@ -187,15 +190,49 @@
             });
     }
 
+    // function para pegar o album mais votado do grupo favorito
+    function albumMaisVotado(nomeGrupo) {
+        fetch("usuarios/albumMaisVotado", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeGrupoFavServer: nomeGrupo
+            })
+        }).then(function (resposta) {
+            console.log("Then do albumMaisVotado")
+
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(JSON.stringify(json))
+                    var idGrupo = json.idGrupo
+                    var idAlbum = json.idAlbum
+                    pegarAlbumTracklist(idGrupo, idAlbum)
+                })
+            } else {
+                console.log("Houve um erro ao pegar o album favorito deste artista!")
+
+                resposta.text().then(texto => {
+                    console.error(texto)
+                })
+            }
+        }).catch(function (erro) {
+            console.log(erro)
+        })
+        return false
+    }
+
     // function para pegar o album e tracklist mais votado do artista favorito
-    function pegarAlbumTracklist(idFavGroup) {
+    function pegarAlbumTracklist(idFavGroup, idAlbumFav) {
         fetch("/usuarios/pegarAlbumTracklist", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                grupoIdServer: idFavGroup
+                grupoIdServer: idFavGroup,
+                albumFavIdServer: idAlbumFav
             })
         }).then(function (resposta) {
             if (resposta.ok) {
