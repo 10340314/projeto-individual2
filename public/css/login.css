@@ -41,7 +41,7 @@
 }
 
 .login-campo {
-    border: solid 2px purple;
+    /* border: solid 2px purple; */
     height: 24%;
     display: flex;
     flex-direction: column;

@@ -55,7 +55,7 @@ body {
 }
 
 .navbar {
-    border: solid 2px pink;
+    /* border: solid 2px pink; */
     width: 40%;
     display: flex;
     justify-content: space-around;
@@ -97,8 +97,8 @@ body {
     width: 95%;
     margin: 0 auto;
     justify-content: center;
-    height: 330px;
-    /* border: solid 2px aliceblue; */
+    height: 410px;
+    border: solid 2px aliceblue;
 }
 
 .hallyu-content {
@@ -133,7 +133,7 @@ body {
     width: 97%;
     margin: 0 auto;
     font-size: 1.2rem;
-    line-height: 1.4;
+    line-height: 1.2;
     letter-spacing: 0.01rem;
 }
 
