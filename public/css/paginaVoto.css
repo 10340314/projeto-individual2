@@ -39,6 +39,7 @@
 .main-content {
     display: flex;
     /* border: solid 2px chartreuse; */
+    padding-bottom: 2.8%;
     /* height: 1000px; */
 }
 

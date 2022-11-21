@@ -96,9 +96,43 @@ body {
 .hallyu-content .container {
     width: 95%;
     margin: 0 auto;
-    justify-content: center;
+    justify-content: space-around;
+    flex-direction: row;
     height: 410px;
-    border: solid 2px aliceblue;
+    /* border: solid 2px aliceblue; */
+}
+
+.pedir-cadastrar {
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    margin: auto 0;
+    justify-content: space-evenly;
+    align-items: center;
+    /* border: solid 2px red; */
+}
+
+.pedir-cadastrar button {
+    background-color: white;
+    letter-spacing: 2px;
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+    width: 34%;
+    height: 60px;
+    padding: 0.7rem 1.2rem;
+    border-radius: 100px;
+    align-self: center;
+    transition: background .5s;
+}
+
+button:hover {
+    background: black;
+    color: white;
+    cursor: pointer;
 }
 
 .hallyu-content {
@@ -112,7 +146,7 @@ body {
     flex-direction: column;
     width: 50%;
     height: 100%;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .hallyu-text-header {
@@ -129,7 +163,8 @@ body {
     /* border: solid 2px darkcyan; */
     display: flex;
     flex-direction: column;
-    height: 100%;
+    justify-content: center;
+    /* height: 100%; */
     width: 97%;
     margin: 0 auto;
     font-size: 1.2rem;
@@ -326,3 +361,134 @@ body {
     margin: 0 auto;
     text-align: center;
 }
+
+.titulo-introdutorio {
+    display: flex;
+    justify-content: center;
+}
+
+.titulo-introdutorio h1 {
+    color: #ffffff;
+    text-shadow: 1px 1px #000000;
+}
+
+
+/* SLIDESHOW */
+
+.mySlides {
+    display: none
+}
+
+img {
+    vertical-align: middle;
+}
+
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.text {
+    color: #f2f2f2;
+    background-color: rgba(0, 0, 0, .5);
+    font-size: 20px;
+    padding: 8px 0;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    align-self: center;
+    text-align: center;
+}
+
+.numbertext {
+    color: #f2f2f2;
+    text-shadow: 1px 1px 0 #000000;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.pontinhos {
+    /* border: solid 2px red; */
+    padding-top: 10px;
+    padding-bottom: 2.5%;
+}
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+/* FOOTER */
+
+.footer {
+    background-color: rgba(0, 0, 0, .5);
+    height: 150px;
+    color: #fff;
+    display: flex;
+    font-size: 18px;
+  }
+  
+  .footer .container {
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .footer .container .version {
+    font-size: 12px;
+  }
+  

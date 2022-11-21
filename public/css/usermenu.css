@@ -11,6 +11,7 @@
 
 .menu {
     /* border: solid 2px red; */
+    padding-bottom: 2.8%;
     height: 100%;
     /* background-color: white; */
 }
@@ -35,7 +36,7 @@
 }
 
 .menu_sair:hover {
-    border-bottom: solid 1px white;
+    /* border-bottom: solid 1px white; */
     cursor: pointer;
 }
 
@@ -55,6 +56,44 @@
 .titulo {
     align-self: center;
 }
+
+.botoes-e-recomendacao {
+    display: flex;
+    flex-direction: column;
+    /* border: solid 2px red; */
+    height: 40%;
+    margin: auto 0;
+    justify-content: space-around;
+}
+
+.botoes-e-recomendacao .recomendacao {
+    /* border: solid 2px oldlace; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 45%;
+    margin: auto 0;
+    margin-right: auto;
+}
+
+.recomendacao-global {
+    /* border: solid 2px khaki; */
+    display: flex;
+}
+
+.resultados-rec {
+    /* border: solid 2px cadetblue; */
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 0.7%;
+}
+
+.resultados-rec span {
+    /* border: solid 2px red; */
+}
+
 
 .group-img-name {
     background-color: rgba(0, 0, 0, .5);
@@ -154,7 +193,7 @@
     justify-content: space-around;
     align-items: center;
     margin: .3rem 0;
-    height: 12%;
+    height: 40%;
 }
 
 .buttons button {
@@ -162,6 +201,20 @@
     font-family: 'Poppins';
     height: 67%;
     width: 25%;
+    background-color: white;
+    letter-spacing: 2px;
+    color: black;
+    font-weight: 600;
+    padding: 0.7rem 1.2rem;
+    border-radius: 100px;
+    align-self: center;
+    transition: background .5s;
+}
+
+.buttons button:hover {
+    background: black;
+    color: white;
+    cursor: pointer;
 }
 
 .fav-album {

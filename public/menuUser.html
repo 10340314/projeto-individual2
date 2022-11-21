@@ -54,9 +54,21 @@
                             <!-- <img src="assets/albums/tmbmil1.jpg" alt=""> -->
                         </div>
                     </div>
-                    <div class="buttons">
-                        <button onclick="abrirPagVoto()">Vote no seu album favorito!</button>
-                        <button>Receba uma recomendação de album!</button>
+                    <div class="botoes-e-recomendacao">
+                        <div class="buttons">
+                            <button onclick="abrirPagVoto()">Vote no seu album favorito!</button>
+                            <button onclick="recomendacao()">Receba uma recomendação de album!</button>
+                        </div>
+                        <div class="recomendacao-global" id="div_recomendacao" style="display: none;">
+                            <div class="recomendacao">
+                                <span>Álbum recomendado:</span>
+                                <span>Do artista: </span>
+                            </div>
+                            <div class="resultados-rec">
+                                <span id="album_recomendado"></span>
+                                <span id="artista_recomendado"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,12 +105,46 @@
             </div>
         </div>
     </div>
+    <div class="footer">
+        <div class="container">
+            <h4>Developed by Victor Daniel &copy; 2022
+                <br>
+                <span class="version">
+                    v1.0.0
+                </span>
+            </h4>
+        </div>
+    </div>
 </body>
 
 </html>
 
 
 <script>
+
+    function recomendacao() {
+        div_recomendacao.style.display = 'flex'
+        var grupoAlbum = [
+            {
+                "grupo": "BTS",
+                "album": ["2COOL4SKOOL", "O!RUL8,2?", "SKOOL LUV AFFAIR", "DARK & WILD", "The Most Beautiful Moment in Life, Part 1"]
+            },
+            {
+                "grupo": "TWICE",
+                "album": ["The Story Begins", "Page Two", "TWICEcoaster: Lane 1", "TWICEcoaster: Lane 2", "What’s TWICE?"]
+            },
+            {
+                "grupo": "NCT",
+                "album": ["NCT #127", "NCT #127 Limitless", "NCT Dream: The first", "NCT #127 Cherry Bomb", "NCT #127 Regular-Irregular"]
+            }
+        ]
+
+        var grupoSort = Math.floor(Math.random()*3+1)
+        var albumSort = Math.floor(Math.random()*5+1)
+        album_recomendado.innerHTML = `${grupoAlbum[grupoSort-1].album[albumSort-1]}`
+        artista_recomendado.innerHTML = `${grupoAlbum[grupoSort-1].grupo}`
+    }
+    
     function abrirPagVoto() {
         window.location = "paginaVoto.html"
     }
