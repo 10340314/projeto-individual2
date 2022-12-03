@@ -69,6 +69,29 @@ CREATE TABLE votosAlbum (
     PRIMARY KEY (id, fkUsuario, fkAlbum, fkGrupo)
 );
 
+CREATE TABLE logRecupSenha (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userID INT NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    senha VARCHAR(50) NOT NULL,
+    dataAlteracao DATETIME DEFAULT NULL,
+    action VARCHAR(50) DEFAULT NULL
+);
+
+CREATE TRIGGER tgRecupSenha
+    BEFORE UPDATE ON usuario
+    FOR EACH ROW 
+ INSERT INTO logRecupSenha
+ SET action = 'update',
+     userID = OLD.id,
+     email = OLD.email,
+     senha = OLD.senha,
+     dataAlteracao = NOW();
+
+SELECT * FROM logRecupSenha;
+SELECT * FROM usuario;
+-- UPDATE usuario SET senha = '1234' WHERE id = 1;
+
 INSERT INTO grupos (nome, dataDebut, empresa, imagem) VALUES
 	('BTS', '2013-06-13', 'HYBE LABELS', 'assets/grupos/btsgrupo.jpg'),
 	('TWICE', '2015-10-20', 'JYP ENTERTAINMENT', 'assets/grupos/twicegrupo.jpg');
@@ -223,6 +246,29 @@ ELSE
 END IF;
 END $
 DELIMITER ;
+
+DELIMITER $
+CREATE FUNCTION update_password(idVar INT, emailVar VARCHAR(45), senhaVar VARCHAR(45))
+RETURNS INT
+DETERMINISTIC
+BEGIN
+IF (ISNULL((SELECT id FROM usuario WHERE email = emailVar))) THEN RETURN -1;
+ELSE
+	IF (ISNULL((SELECT id FROM logRecupSenha WHERE email = emailVar
+											   AND senha = senhaVar)))
+		THEN UPDATE usuario SET senha = senhaVar WHERE id = idVar;
+        RETURN 1;
+	ELSE
+		RETURN 0;
+	END IF;
+END IF;
+END $
+DELIMITER ;
+
+-- SELECT update_password(1, 'vd@gmail.com', '123') as update_status;
+-- SELECT * FROM logRecupSenha;
+
+
 
 /*
 esse if n ta funcionando, n sei como usar

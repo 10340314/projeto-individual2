@@ -79,7 +79,7 @@
     var emailInput = document.getElementById("ipt_email")
     var senhaInput = document.getElementById("ipt_pass")
     var confSenhaInput = document.getElementById("ipt_pass2")
-    
+
     var erro = false
 
     function verificar() {
@@ -94,18 +94,18 @@
             senhaInput.style = "border: solid 2px red"
             confSenhaInput.style = "border: solid 2px red"
         }
-        
+
         if (!erro) {
             trocar()
         }
     }
-    
+
     function trocar() {
         div_erros.style.display = 'none'
         var emailVar = emailInput.value
         var idVar = idInput.value
         var senhaVar = senhaInput.value
-        
+
         fetch("usuarios/trocar", {
             method: "POST",
             headers: {
@@ -122,7 +122,19 @@
             if (resposta.ok) {
                 resposta.json().then(json => {
                     console.log(JSON.stringify(json))
-                    
+                    if (json.update_status) {
+                        div_erros.style.display = 'flex'
+                        span_erros.innerHTML = "Senha trocada com sucesso! Redirecionando para a tela de login"
+                        setTimeout(() => {
+                            window.location = 'login.html'
+                        }, "2000")
+                    } else if (json.update_status == -1) {
+                        div_erros.style.display = 'flex'
+                        span_erros.innerHTML = "Não existe um usuário com estes dados"
+                    } else {
+                        div_erros.style.display = 'flex'
+                        span_erros.innerHTML = "Esta senha já foi utilizada anteriormente"
+                    }
                 })
             } else {
                 console.log("Houve um erro ao trocar a senha!")

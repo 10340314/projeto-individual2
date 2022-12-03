@@ -131,7 +131,7 @@ function entrar(req, res) {
 
 function trocar(req, res) {
     var idUser = req.body.idServer;
-    var email = req.body.loginServer;
+    var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
     if (email == undefined) {
@@ -144,17 +144,7 @@ function trocar(req, res) {
         usuarioModel.trocar(idUser, email, senha)
             .then(
                 function (resultado) {
-                    // console.log(`\nResultados encontrados: ${resultado.length}`);
-                    // console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
-
-                    if (resultado.length == 1) {
-                        // console.log(resultado);
-                        res.json(resultado[0]);
-                    } else if (resultado.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
-                    } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                    }
+                    res.json(resultado[0]);
                 }
             ).catch(
                 function (erro) {
@@ -315,6 +305,7 @@ module.exports = {
     albumMaisVotado,
     userFavGroup,
     pegarAlbums,
+    trocar,
     testar,
     verEndereco
 }

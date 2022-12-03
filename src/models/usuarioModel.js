@@ -146,6 +146,15 @@ function verEndereco(cep, rua, bairro, cidade, estado, num) {
     return database.executar(instrucao);
 }
 
+function trocar(id, email, senha) {
+    // console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verEndereco()");
+    var instrucao = `
+        SELECT update_password(${id}, '${email}', '${senha}') as update_status;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     cadastrar,
@@ -153,6 +162,7 @@ module.exports = {
     userFavGroup,
     albumMaisVotado,
     pegarQtdVotos,
+    trocar,
     registrarVoto,
     pegarAlbums,
     pegarAlbumTracklist,
