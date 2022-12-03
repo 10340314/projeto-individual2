@@ -48,4 +48,8 @@ router.post("/login", function (req, res) {
     usuarioController.entrar(req, res);
 });
 
+router.post("/trocar", function (req, res) {
+    usuarioController.trocar(req, res);
+});
+
 module.exports = router;

@@ -1,5 +1,0 @@
-para verificar se ja existe ou não
-
-primeiro select on load
-depois if o retorno foi null (vetor vazio), define a instrução para INSERT
-se o retorno já existe, definir a instrução para UPDATE

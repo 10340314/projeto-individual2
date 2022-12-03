@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Trocar senha</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
     <script src="js/funcoes.js"></script>
@@ -31,25 +31,43 @@
             </div>
             <div class="form-login">
                 <div class="form-title">
-                    <h2>Faça o seu login</h2>
+                    <h2>Trocar senha</h2>
                 </div>
                 <div class="login-campos">
+                    <div class="login-campo" style="margin-top: 10px;">
+                        <span class="nome_campo">ID do usuário</span>
+                        <input type="email" id="ipt_userid" autofocus onkeypress="limpaBorda(this)">
+                    </div>
                     <div class="login-campo">
                         <span class="nome_campo">E-mail</span>
-                        <input type="email" id="ipt_email" autofocus placeholder="E-mail" onkeypress="limpaBorda(this)">
+                        <input type="email" id="ipt_email" placeholder="E-mail" onkeypress="limpaBorda(this)">
                     </div>
                     <div class="login-campo">
-                        <span class="nome_campo">Senha</span>
+                        <span class="nome_campo">Nova senha</span>
                         <input type="password" id="ipt_pass" placeholder="******" onkeypress="limpaBorda(this)">
                     </div>
-                    <div class="btn_forgot">
-                        <span class="forgot_pass"><a href="#">Esqueceu a senha?</a></span>
-                        <button onclick="verificar()">Entrar</button>
+                    <div class="login-campo">
+                        <span class="nome_campo">Confirme a senha</span>
+                        <input type="password" id="ipt_pass2" placeholder="******" onkeypress="limpaBorda(this)">
                     </div>
-                    <span class="criar_acc">Não tem uma conta? <a href="cadastro.html">Criar uma conta!</a></span>
-                    <div id="div_erros"><span id="span_erros">ADDASSD</span></div>
+                    <div class="btn_forgot" style="margin-top: 15px; margin-bottom: 15px;">
+                        <!-- <span class="forgot_pass"><a href="#">Esqueceu a senha?</a></span> -->
+                        <button onclick="verificar()">Trocar senha</button>
+                    </div>
+                    <!-- <span class="criar_acc">Não tem uma conta? <a href="cadastro.html">Criar uma conta!</a></span> -->
+                    <div id="div_erros"><span id="span_erros"></span></div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <h4>Developed by Victor Daniel &copy; 2022
+                <br>
+                <span class="version">
+                    v1.0.0
+                </span>
+            </h4>
         </div>
     </div>
 </body>
@@ -57,58 +75,57 @@
 </html>
 
 <script>
+    var idInput = document.getElementById("ipt_userid")
     var emailInput = document.getElementById("ipt_email")
     var senhaInput = document.getElementById("ipt_pass")
-    var confSenhaInput = document.getElementById("ipt_pass")
+    var confSenhaInput = document.getElementById("ipt_pass2")
     
     var erro = false
 
     function verificar() {
-        var inputs = [emailInput, senhaInput]
+        var inputs = [idInput, emailInput, senhaInput, confSenhaInput]
 
         for (let i = 0; i < inputs.length; i++) {
             verifErro(inputs[i].value, inputs[i])
         }
 
+        if (senhaInput.value != confSenhaInput.value) {
+            erro = true
+            senhaInput.style = "border: solid 2px red"
+            confSenhaInput.style = "border: solid 2px red"
+        }
+        
         if (!erro) {
-            logar()
+            trocar()
         }
     }
     
-    function logar() {
+    function trocar() {
         div_erros.style.display = 'none'
-        var loginVar = emailInput.value
+        var emailVar = emailInput.value
+        var idVar = idInput.value
         var senhaVar = senhaInput.value
         
-        fetch("usuarios/login", {
+        fetch("usuarios/trocar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                loginServer: loginVar,
+                idServer: idVar,
+                emailServer: emailVar,
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
-            console.log("Then do Entrar")
+            console.log("Then do trocar senha")
 
             if (resposta.ok) {
                 resposta.json().then(json => {
                     console.log(JSON.stringify(json))
-
-                    sessionStorage.ID_USUARIO = json.id
-                    sessionStorage.NOME_USUARIO = json.nome
-                    sessionStorage.SOBRENOME_USUARIO = json.sobrenome
-                    sessionStorage.ID_GRUPOFAV = json.fkGrupoFav
-                    alert("Logado com sucesso!")
-
-                    setTimeout(() => {
-                        window.location = "menuUser.html"
-                    }, "1000");
-
+                    
                 })
             } else {
-                console.log("Houve um erro ao realizar o login!")
+                console.log("Houve um erro ao trocar a senha!")
 
                 resposta.text().then(texto => {
                     console.error(texto)
