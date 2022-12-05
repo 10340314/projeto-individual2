@@ -48,13 +48,13 @@
                             </select>
                         </div>
                         <div class="albuns-row">
-                            <img src="" alt="" id="album_img1" onclick="selecionarAlbum(1)">
-                            <img src="" alt="" id="album_img2" onclick="selecionarAlbum(2)">
-                            <img src="" alt="" id="album_img3" onclick="selecionarAlbum(3)">
+                            <img src="" alt="" id="album_img1" onclick="selecionarAlbum(1, this)">
+                            <img src="" alt="" id="album_img2" onclick="selecionarAlbum(2, this)">
+                            <img src="" alt="" id="album_img3" onclick="selecionarAlbum(3, this)">
                         </div>
                         <div class="albuns-row">
-                            <img src="" alt="" id="album_img4" onclick="selecionarAlbum(4)">
-                            <img src="" alt="" id="album_img5" onclick="selecionarAlbum(5)">
+                            <img src="" alt="" id="album_img4" onclick="selecionarAlbum(4, this)">
+                            <img src="" alt="" id="album_img5" onclick="selecionarAlbum(5, this)">
                         </div>
                     </div>
                     <div class="box-votacao">
@@ -173,11 +173,15 @@
         }
     }
 
-    function selecionarAlbum(n) {
+    function selecionarAlbum(n, elemento) {
         albumSelecionado = n
         infoVoto.style.display = 'flex'
         albumname.innerHTML = grupos[grupoSelecionado - 1][n - 1].nomeAlbum
         artistname.innerHTML = grupos[grupoSelecionado - 1][n - 1].nomeGrupo
+        for (let i = 0; i < albumImagens.length; i++) {
+            albumImagens[i].style.transform = "none"
+        }
+        elemento.style.transform = "scale(1.1)"
     }
 
     function votar(votoAlbum) {
@@ -203,6 +207,8 @@
 
                 if (resposta.ok) {
                     alert("Voto registrado com sucesso!")
+                    albumImagens[albumSelecionado - 1].style.transform = "none"
+                    infoVoto.style.display = "none"
                     resposta.json().then(json => {
                         // console.log(json)
                         // console.log(`ID : ${json.insertId}`)

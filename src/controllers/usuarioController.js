@@ -26,8 +26,10 @@ function pegarAlbumTracklist(req, res) {
 function albumMaisVotado(req, res) {
     var nomeGrupo = req.body.nomeGrupoFavServer;
     usuarioModel.albumMaisVotado(nomeGrupo).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado[0]);
+        console.log("Resultado")
+        console.log(resultado)
+        if (resultado.length >= 0) {
+            res.status(200).json(resultado);
         } else {
             res.status(204).send("Nenhum resultado encontrado!")
         }

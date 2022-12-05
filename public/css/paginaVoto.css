@@ -92,7 +92,7 @@
     /* border: solid 2px black; */
     display: flex;
     flex: column;
-    height: 700px;
+    height: 800px;
 }
 
 .album-images {
@@ -118,6 +118,11 @@
     /* border: solid 2px aqua; */
     /* margin: auto 0; */
     height: 300px;
+    transition: all .2s ease-in-out;
+}
+
+.albuns-row img:hover {
+    transform: scale(1.1);
 }
 
 .box-votacao {

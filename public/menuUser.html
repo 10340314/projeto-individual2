@@ -91,7 +91,7 @@
                                 <div class="album_name" id="fav_album_name">
                                     <!-- <h3>DARK & WILD</h3> -->
                                 </div>
-                                <span>Tracklist:</span>
+                                <span id="span_tracklist">Tracklist:</span>
                                 <div id="tracklist">
                                     <ul id="ul_tracklist">
                                         <!-- <li>Danger</li> -->
@@ -184,6 +184,7 @@
                     var albumsdiv = document.getElementById("user_fav_groups_album")
                     var grupoNome = document.getElementById("user_fav_group")
                     var divImagemGrupo = document.getElementById("user_group_img")
+                    var imgArray = []
                     grupoNome.innerHTML = json[0].nome
                     divImagemGrupo.style.backgroundImage = `url(${json[0].imagem})`
                     for (let i = 0; i < json.length; i++) {
@@ -191,7 +192,9 @@
                         img_div.src = json[i].cover
                         // console.log(img_div.src)
                         albumsdiv.appendChild(img_div)
+                        imgArray.push(img_div)
                     }
+                    efeitoAlbuns(imgArray)
                 })
             } else {
                 console.log("Houve um erro ao procurar o grupo")
@@ -205,6 +208,25 @@
         })
         return false
     }
+
+    function efeitoAlbuns(divelements) {
+        let i = 0
+        divelements.forEach(element => {
+            element.style.transition = "all .2s ease-in-out"
+        });
+        setInterval(() => {
+            if (i) {
+                divelements[i-1].style.transform = "none"
+                divelements[i].style.transform = "scale(1.1)"
+            } else {
+                divelements[divelements.length - 1].style.transform = "none"
+                divelements[i].style.transform = "scale(1.1)"
+            }
+            i++
+            if (i == divelements.length) i = 0
+        }, 550);
+    }
+
 
     // função para achar o grupo mais votado e adicionar na right-section
     // adiciona na right-section o nome do grupo e a imagem do grupo mais votado (favorito) dentre os usuários cadastrados
@@ -252,9 +274,15 @@
             if (resposta.ok) {
                 resposta.json().then(json => {
                     console.log(JSON.stringify(json))
-                    var idGrupo = json.idGrupo
-                    var idAlbum = json.idAlbum
-                    pegarAlbumTracklist(idGrupo, idAlbum)
+                    if (json.length == 0) {
+                        fav_album_name.innerHTML = 'Nenhum voto computado!'
+                        span_tracklist.style.display = "none"
+                    } else {
+                        span_tracklist.style.display = "block"
+                        var idGrupo = json[0].idGrupo
+                        var idAlbum = json[0].idAlbum
+                        pegarAlbumTracklist(idGrupo, idAlbum)
+                    }
                 })
             } else {
                 console.log("Houve um erro ao pegar o album favorito deste artista!")
