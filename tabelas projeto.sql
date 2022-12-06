@@ -220,13 +220,6 @@ CREATE FUNCTION select_or_insert(cepVar VARCHAR(8), ruaVar VARCHAR(45), bairroVa
 RETURNS INT
 DETERMINISTIC
 BEGIN
-/*SET @registroEnd := (SELECT id FROM endereco WHERE cep = dcep
-								    AND rua = drua
-                                    AND bairro = dbairro
-                                    AND cidade = dcidade
-                                    AND estado = destado
-                                    AND num = dnum);
-*/
 IF (ISNULL((SELECT id FROM endereco WHERE cep = cepVar
 								    AND rua = ruaVar
                                     AND bairro = bairroVar
@@ -269,9 +262,15 @@ DELIMITER ;
 -- SELECT * FROM logRecupSenha;
 
 
+/*SET @registroEnd := (SELECT id FROM endereco WHERE cep = dcep
+								    AND rua = drua
+                                    AND bairro = dbairro
+                                    AND cidade = dcidade
+                                    AND estado = destado
+                                    AND num = dnum);
+*/
 
 /*
-esse if n ta funcionando, n sei como usar
 IF (ISNULL(SELECT id FROM endereco WHERE cep = '09570410'
 								    AND rua = 'Rua Serafim Carlos'
                                     AND bairro = 'Osvaldo Cruz'
@@ -289,7 +288,7 @@ SELECT id FROM endereco WHERE cep = '09570410'
                                     AND estado = 'SP'
                                     AND num = 43;
 */
--- função tb n tava funcionando qnd usava @registroEnd. erro: Unknown column 'registroEnd' in 'field list'
+-- função n tava funcionando qnd usava @registroEnd. erro: Unknown column 'registroEnd' in 'field list'
 
 -- SELECT select_or_insert('09570410', 'Rua Serafim Carlos', 'Osvaldo Cruz', 'São Caetano do Sul', 'SP', 43) as idInserido;
 -- drop function select_or_insert;

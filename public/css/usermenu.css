@@ -197,10 +197,10 @@
 }
 
 .buttons button {
-    font-size: .9rem;
+    font-size: 70%;
     font-family: 'Poppins';
     height: 67%;
-    width: 25%;
+    width: 30%;
     background-color: white;
     letter-spacing: 2px;
     color: black;
